@@ -26,12 +26,12 @@ public class UserDAO {
         return (User) sessionFactory.getCurrentSession().createQuery("from User where login='" + (String) login.toLowerCase(Locale.ROOT) + "'").uniqueResult();
     }
 
-    public User getUserById(int id){
-        return sessionFactory.getCurrentSession().get(User.class, id);
-    }
-
     public User getUserByEmail(String email){
         return (User) sessionFactory.getCurrentSession().createQuery("from User where email='" + (String) email.toLowerCase(Locale.ROOT) + "'").uniqueResult();
+    }
+
+    public User getUserById(int id){
+        return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     public void createUser(User user){
