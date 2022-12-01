@@ -24,7 +24,7 @@ public class User {
     private String last_name;
 
     @Column(name = "patronym", nullable = true)
-    private String patronum;
+    private String patronym;
 
     @Column(name = "role", nullable = false)
     private String role;
@@ -45,16 +45,16 @@ public class User {
         this.last_name = last_name;
     }
 
-    public void setPatronum(String patronum) {
-        this.patronum = patronum;
+    public void setPatronym(String patronum) {
+        this.patronym = patronum;
     }
 
     public String getLast_name() {
         return last_name;
     }
 
-    public String getPatronum() {
-        return patronum;
+    public String getPatronym() {
+        return patronym;
     }
 
     public int getId() {
