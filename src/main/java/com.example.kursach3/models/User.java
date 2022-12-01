@@ -11,14 +11,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "login", nullable = false)
-    private String login;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "first_name", nullable = false)
+    private String first_name;
+
+    @Column(name = "last_name", nullable = false)
+    private String last_name;
+
+    @Column(name = "patronym", nullable = true)
+    private String patronum;
 
     @Column(name = "role", nullable = false)
     private String role;
@@ -27,12 +33,32 @@ public class User {
 
     }
 
-    public int getId() {
-        return id;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public String getLogin() {
-        return login;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public void setPatronum(String patronum) {
+        this.patronum = patronum;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public String getPatronum() {
+        return patronum;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getPassword() {
@@ -49,10 +75,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public void setPassword(String password) {
