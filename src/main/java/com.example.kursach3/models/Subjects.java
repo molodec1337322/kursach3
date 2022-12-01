@@ -10,4 +10,20 @@ public class Subjects {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "Subjects")
     private int subject_id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSubject_id(int subject_id) {
+        this.subject_id = subject_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSubject_id() {
+        return subject_id;
+    }
 }

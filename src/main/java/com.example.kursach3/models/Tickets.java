@@ -34,4 +34,76 @@ public class Tickets {
 
     @Column(name = "ticket_text", nullable = false)
     private String ticket_text;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSubject_id(int subject_id) {
+        this.subject_id = subject_id;
+    }
+
+    public void setCreated_by_id(int created_by_id) {
+        this.created_by_id = created_by_id;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public void setEdited_at(Date edited_at) {
+        this.edited_at = edited_at;
+    }
+
+    public void setFile_id(int file_id) {
+        this.file_id = file_id;
+    }
+
+    public void setTicket_UID(String ticket_UID) {
+        this.ticket_UID = ticket_UID;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public void setTicket_text(String ticket_text) {
+        this.ticket_text = ticket_text;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSubject_id() {
+        return subject_id;
+    }
+
+    public int getCreated_by_id() {
+        return created_by_id;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public Date getEdited_at() {
+        return edited_at;
+    }
+
+    public int getFile_id() {
+        return file_id;
+    }
+
+    public String getTicket_UID() {
+        return ticket_UID;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public String getTicket_text() {
+        return ticket_text;
+    }
 }

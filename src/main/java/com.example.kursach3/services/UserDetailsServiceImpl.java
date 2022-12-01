@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Unknown user: " + login);
         }
         UserDetails user = org.springframework.security.core.userdetails.User.builder()
-                .username(myUser.getLogin())
+                .username(myUser.getEmail())
                 .password(myUser.getPassword())
                 .roles(myUser.getRole())
                 .build();
@@ -49,7 +49,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public boolean saveUser(User user){
-        User userFromDB = userDAO.getUserByLogin(user.getLogin().toLowerCase(Locale.ROOT));
+        User userFromDB = userDAO.getUserByEmail(user.getEmail().toLowerCase(Locale.ROOT));
         User userFromEmailDB = userDAO.getUserByEmail(user.getEmail().toLowerCase(Locale.ROOT));
 
         if(userFromDB != null || userFromEmailDB != null){
