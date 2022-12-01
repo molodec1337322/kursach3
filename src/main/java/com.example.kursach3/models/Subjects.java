@@ -2,28 +2,33 @@ package com.example.kursach3.models;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "Subjects")
 public class Subjects {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Subjects")
-    private int subject_id;
+    @Column(name = "subject_name", nullable = false)
+    private int subject_name;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setSubject_id(int subject_id) {
-        this.subject_id = subject_id;
+    public Subjects() {
     }
 
     public int getId() {
         return id;
     }
 
-    public int getSubject_id() {
-        return subject_id;
+    public int getSubject_name() {
+        return subject_name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSubject_name(int subject_name) {
+        this.subject_name = subject_name;
     }
 }

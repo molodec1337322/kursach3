@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
-@ComponentScan(basePackages = "com.example.kursach2tkp")
+@ComponentScan(basePackages = "com.example.kursach3")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

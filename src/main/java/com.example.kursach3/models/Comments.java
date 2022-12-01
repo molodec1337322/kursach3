@@ -3,6 +3,8 @@ package com.example.kursach3.models;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "Comments")
 public class Comments {
     @Id
     @Column(name = "id", nullable = false)
@@ -25,6 +27,9 @@ public class Comments {
 
     @Column(name = "comment_text", nullable = false)
     private String comment_text;
+
+    public Comments() {
+    }
 
     public void setId(int id) {
         this.id = id;

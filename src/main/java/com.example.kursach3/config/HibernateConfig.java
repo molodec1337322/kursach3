@@ -48,7 +48,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.example.kursach2tkp.models");
+        sessionFactory.setPackagesToScan("com.example.kursach3.models");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

@@ -2,6 +2,8 @@ package com.example.kursach3.models;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "Teachers")
 public class Teachers {
 
     @Id
@@ -12,6 +14,9 @@ public class Teachers {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private int user_id;
+
+    public Teachers() {
+    }
 
     public void setId(int id) {
         this.id = id;

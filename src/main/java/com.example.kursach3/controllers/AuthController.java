@@ -30,12 +30,12 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(Authentication authentication){
-        return "auth/auth/Войти";
+        return "auth/login";
     }
 
     @GetMapping("/registration")
     public String registration(){
-        return "auth/auth/Зарегистрироваться";
+        return "auth/registration";
     }
 
     @PostMapping("/registration")

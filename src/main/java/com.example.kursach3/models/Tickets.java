@@ -3,6 +3,8 @@ package com.example.kursach3.models;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "Tickets")
 public class Tickets {
     @Id
     @Column(name = "id", nullable = false)
@@ -23,7 +25,7 @@ public class Tickets {
     @Column(name = "edited_at", nullable = false)
     private Date edited_at;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "file_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Files")
     private int file_id;
 
     @Column(name = "ticket_UID", nullable = false)
@@ -34,6 +36,9 @@ public class Tickets {
 
     @Column(name = "ticket_text", nullable = false)
     private String ticket_text;
+
+    public Tickets() {
+    }
 
     public void setId(int id) {
         this.id = id;

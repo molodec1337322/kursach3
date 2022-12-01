@@ -2,6 +2,8 @@ package com.example.kursach3.models;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "Files")
 public class Files {
     @Id
     @Column(name = "id", nullable = false)
