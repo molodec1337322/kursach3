@@ -1,6 +1,6 @@
 package com.example.kursach3.dao;
 
-import com.example.kursach3.models.Answers;
+import com.example.kursach3.models.Answer;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ public class AnswerDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public Answers GetAnswerByID(int id){
-        return sessionFactory.getCurrentSession().get(Answers.class, id);
+    public Answer GetAnswerByID(int id){
+        return sessionFactory.getCurrentSession().get(Answer.class, id);
     }
 }

@@ -3,9 +3,10 @@ package com.example.kursach3.models;
 import javax.persistence.*;
 import java.util.Date;
 
+
 @Entity
-@Table(name = "Comments")
-public class Comments {
+@Table(name = "comments")
+public class Comment {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,11 +14,11 @@ public class Comments {
 
     @ManyToOne
     @JoinColumn(name = "answer_id")
-    private int answer_id;
+    private Answer answer;
 
     @ManyToOne
-    @JoinColumn(name = "created_by_id")
-    private int created_by_id;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "created_at", nullable = false)
     private Date created_at;
@@ -28,20 +29,21 @@ public class Comments {
     @Column(name = "comment_text", nullable = false)
     private String comment_text;
 
-    public Comments() {
+    public Comment() {
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setAnswer_id(int answer_id) {
-        this.answer_id = answer_id;
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 
-    public void setCreated_by_id(int created_by_id) {
-        this.created_by_id = created_by_id;
+    public void setUser(User created_by) {
+        this.user = created_by;
     }
+
 
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;
@@ -55,16 +57,18 @@ public class Comments {
         this.comment_text = comment_text;
     }
 
+
+
     public int getId() {
         return id;
     }
 
-    public int getAnswer_id() {
-        return answer_id;
+    public Answer getAnswer() {
+        return answer;
     }
 
-    public int getCreated_by_id() {
-        return created_by_id;
+    public User getUser() {
+        return user;
     }
 
     public Date getCreated_at() {

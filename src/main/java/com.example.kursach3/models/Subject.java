@@ -1,10 +1,12 @@
 package com.example.kursach3.models;
 
 import javax.persistence.*;
+import java.util.Set;
+
 
 @Entity
-@Table(name = "Subjects")
-public class Subjects {
+@Table(name = "subjects")
+public class Subject {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,7 +15,10 @@ public class Subjects {
     @Column(name = "subject_name", nullable = false)
     private int subject_name;
 
-    public Subjects() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
+    private Set<Ticket> tickets;
+
+    public Subject() {
     }
 
     public int getId() {

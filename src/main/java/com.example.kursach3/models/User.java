@@ -1,6 +1,8 @@
 package com.example.kursach3.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -23,11 +25,21 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String last_name;
 
-    @Column(name = "patronym", nullable = true)
+    @Column(name = "patronym")
     private String patronym;
 
     @Column(name = "role", nullable = false)
     private String role;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Ticket> tickets = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Answer> answers = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
 
     public User(){
 
@@ -47,6 +59,18 @@ public class User {
 
     public void setPatronym(String patronum) {
         this.patronym = patronum;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public String getLast_name() {
@@ -88,4 +112,17 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public Set<Answer> getAnswers() {
+        return answers;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
 }
