@@ -57,7 +57,7 @@ public class AuthController {
         if(!userDetailsService.saveUser(newUser)){
             return "redirect:/auth/registration?collision_error";
         }
-        return "redirect:/subjects";
+        return "redirect:/login";
     }
 
     @GetMapping("/logout")
@@ -67,6 +67,6 @@ public class AuthController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
-        return "redirect:/subjects";
+        return "redirect:/login";
     }
 }

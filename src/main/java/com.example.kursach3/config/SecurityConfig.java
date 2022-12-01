@@ -41,19 +41,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/tickets", "/tickets/all", "/tickets/info", "/disciplines").permitAll()
-                .antMatchers("/registration", "/login").not().fullyAuthenticated()
+                .antMatchers("/auth/registration", "/auth/login").not().fullyAuthenticated()
                 //.antMatchers("/workers/new", "/subjects/new").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
 
                 .formLogin()
                 // указываем страницу с формой логина
-                .loginPage("/login")
+                .loginPage("/auth/login")
                 .defaultSuccessUrl("/home", true)
                 // указываем action с формы логина
-                .loginProcessingUrl("/login_processing")
+                .loginProcessingUrl("/auth/login_processing")
                 // указываем URL при неудачном логине
-                .failureUrl("/login?error")
+                .failureUrl("/auth/login?error")
                 // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("email")
                 .passwordParameter("password")

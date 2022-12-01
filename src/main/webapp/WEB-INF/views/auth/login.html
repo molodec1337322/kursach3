@@ -5,12 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/auth/login_processing}" method="post" method="POST">
-    <input type="text", placeholder="email", name="email">
-    <input type="text", placeholder="password", name="password">
-    <a href="#">войти</a>
-    <input type="submit" value="submit" class="u-form-control-hidden">
-    <div th:if="${param.error}" class="u-align-center u-form-group u-form-submit"> Неправильное имя пользователя или пароль. </div>
-</form>
+<div>
+    <form th:action="@{/auth/login_processing}" method="post">
+        <input type="text", placeholder="email" name="email">
+        <input type="text", placeholder="password" name="password">
+        <input type="submit" value="login" class="u-form-control-hidden">
+        <div th:if="${param.error}" class="u-align-center u-form-group u-form-submit"> Неправильное имя пользователя или пароль. </div>
+    </form>
+</div>
 </body>
 </html>

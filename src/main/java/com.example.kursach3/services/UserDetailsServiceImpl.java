@@ -30,11 +30,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User myUser= userDAO.getUserByLogin(login);
+        User myUser= userDAO.getUserByEmail(email);
         if (myUser == null) {
-            throw new UsernameNotFoundException("Unknown user: " + login);
+            throw new UsernameNotFoundException("Unknown user: " + email);
         }
         UserDetails user = org.springframework.security.core.userdetails.User.builder()
                 .username(myUser.getEmail())
