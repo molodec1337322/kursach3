@@ -38,8 +38,8 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Войти.html" style="padding: 10px 106px;">Войти</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="padding: 10px 105px 10px 106px;">Регистрация</a>
+            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/login}" style="padding: 10px 106px;">Войти</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/registration}" style="padding: 10px 105px 10px 106px;">Регистрация</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
@@ -61,11 +61,11 @@
           <form th:action="@{/auth/login_processing}" method="POST" class="" source="custom" name="form" style="padding: 10px;">
             <input type="hidden" id="siteId" name="siteId" value="831827426">
             <input type="hidden" id="pageId" name="pageId" value="143412761">
-            <div class="u-form-group u-form-name">
+            <div style="margin-top: 10px;" class="u-form-group u-form-name">
               <label for="name-f405" class="u-form-control-hidden u-label"></label>
               <input type="text" placeholder="Введите адресс электронной почты" id="name-f405" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
-            <div class="u-form-email u-form-group">
+            <div style="margin-top: 10px;" class="u-form-email u-form-group">
               <label for="email-f405" class="u-form-control-hidden u-label"></label>
               <input type="password" placeholder="Введите пароль" id="email-f405" name="password" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>

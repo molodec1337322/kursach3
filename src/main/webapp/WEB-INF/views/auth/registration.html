@@ -38,8 +38,8 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Войти.html" style="padding: 10px 106px;">Войти</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="padding: 10px 105px 10px 106px;">Регистрация</a>
+            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/login}" style="padding: 10px 106px;">Войти</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/registration}" style="padding: 10px 105px 10px 106px;">Регистрация</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
@@ -58,28 +58,35 @@
     <section class="u-clearfix u-section-1" id="sec-0956">
       <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-form u-form-1">
-          <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+          <form action="#" method="POST" class="" source="custom" name="form" style="padding: 10px;">
             <input type="hidden" id="siteId" name="siteId" value="831827426">
             <input type="hidden" id="pageId" name="pageId" value="143412761">
-            <div class="u-form-group u-form-name">
+            <div style="margin-top: 10px;" class="u-form-group u-form-name">
               <label for="name-f405" class="u-form-control-hidden u-label"></label>
-              <input type="text" placeholder="Введите Ваше имя" id="name-f405" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+              <input type="email" placeholder="Введите ваш адресс электронной почты" id="name-f405" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
-            <div class="u-form-email u-form-group">
+            <div style="margin-top: 10px;" class="u-form-email u-form-group">
               <label for="email-f405" class="u-form-control-hidden u-label"></label>
-              <input type="email" placeholder="Введите Ваш email адрес" id="email-f405" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+              <input type="password" placeholder="Введите новый пароль" id="email-f405" name="password" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
-            <div class="u-form-group u-form-message">
-              <label for="message-f405" class="u-form-control-hidden u-label"></label>
-              <textarea placeholder="Введите Ваше сообщение" rows="4" cols="50" id="message-f405" name="message" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
-            </div>
+              <div style="margin-top: 10px;" class="u-form-group u-form-name">
+                  <label for="name-f405" class="u-form-control-hidden u-label"></label>
+                  <input type="text" placeholder="Введите ваше имя" id="firstname-f405" name="first_name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+              </div>
+              <div style="margin-top: 10px;" class="u-form-group u-form-name">
+                  <label for="name-f405" class="u-form-control-hidden u-label"></label>
+                  <input type="text" placeholder="Введите вашу фамилию" id="lastname-f405" name="last_name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+              </div>
+              <div style="margin-top: 10px;" class="u-form-group u-form-name">
+                  <label for="name-f405" class="u-form-control-hidden u-label"></label>
+                  <input type="text" placeholder="Введите ваше отчество (необязательно)" id="patronym-f405" name="patronym" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+              </div>
             <div class="u-align-center u-form-group u-form-submit">
-              <a href="#" class="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-2 u-btn-1">Отправить</a>
+              <a href="#" class="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-2 u-btn-1">Зарегистрироваться</a>
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
-            <div class="u-form-send-message u-form-send-success"> Спасибо! Ваше сообщение отправлено. </div>
-            <div class="u-form-send-error u-form-send-message"> Отправка не удалась. Пожалуйста, исправьте ошибки и попробуйте еще раз. </div>
             <input type="hidden" value="" name="recaptchaResponse">
+              <div th:if="${param.collision_error}" class="u-align-center u-form-group u-form-submit"> Пользователь с таким адресом электронной почты уже существует </div>
           </form>
         </div>
       </div>
