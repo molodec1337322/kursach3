@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 // указываем страницу с формой логина
                 .loginPage("/auth/login")
-                .defaultSuccessUrl("/home", true)
+                .defaultSuccessUrl("/tickets", true)
                 // указываем action с формы логина
                 .loginProcessingUrl("/auth/login_processing")
                 // указываем URL при неудачном логине
