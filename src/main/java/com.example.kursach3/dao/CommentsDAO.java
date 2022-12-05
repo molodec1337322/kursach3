@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Repository
 @Transactional
-public class Comments {
+public class CommentsDAO {
 
     private SessionFactory sessionFactory;
 
@@ -18,7 +18,7 @@ public class Comments {
         this.sessionFactory = sessionFactory;
     }
 
-    public Comments GetCommentById(int id){
-        return sessionFactory.getCurrentSession().get(Comments.class, id);
+    public CommentsDAO GetCommentById(int id){
+        return sessionFactory.getCurrentSession().get(CommentsDAO.class, id);
     }
 }

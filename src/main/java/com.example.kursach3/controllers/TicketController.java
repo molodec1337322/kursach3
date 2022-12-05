@@ -1,5 +1,8 @@
 package com.example.kursach3.controllers;
 
+import com.example.kursach3.dao.AnswerDAO;
+import com.example.kursach3.dao.TicketDAO;
+import com.example.kursach3.models.Answer;
 import com.example.kursach3.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,15 +13,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/tickets")
 public class TicketController {
 
     private UserDetailsServiceImpl userDetailsService;
+    private TicketDAO ticketDAO;
+    private AnswerDAO answerDAO;
 
     @Autowired
-    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService){
+    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService, TicketDAO ticketDAO, AnswerDAO answerDAO){
         this.userDetailsService = userDetailsService;
+        this.ticketDAO = ticketDAO;
+        this.answerDAO = answerDAO;
     }
 
     @GetMapping("/toCheck")
@@ -42,7 +51,10 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        List<Answer> answers = answerDAO.getAllAnswers();
+
         model.addAttribute("logged_user", username);
+        model.addAttribute("answersToCheck", answers);
 
         return "tickets/ticketsToCheck";
     }
@@ -68,6 +80,8 @@ public class TicketController {
         if(!isTeacher){
             return "redirect:/access_denial";
         }
+
+
 
         model.addAttribute("logged_user", username);
 

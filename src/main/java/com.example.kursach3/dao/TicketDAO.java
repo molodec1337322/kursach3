@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 @Repository
 @Transactional
@@ -21,5 +23,9 @@ public class TicketDAO {
 
     public Ticket getTicketByID(int id){
         return sessionFactory.getCurrentSession().get(Ticket.class, id);
+    }
+
+    public List<Ticket> getAllTickets(){
+        return sessionFactory.getCurrentSession().createQuery("from Tickets").list();
     }
 }
