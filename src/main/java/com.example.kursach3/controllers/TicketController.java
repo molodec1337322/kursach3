@@ -56,6 +56,7 @@ public class TicketController {
 
         model.addAttribute("logged_user", username);
         model.addAttribute("answersToCheck", answerDAO.getAllAnswers());
+        model.addAttribute("tickets", ticketDAO.getAllTickets());
 
         return "tickets/ticketsToCheck";
     }
@@ -83,17 +84,8 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
-        Answer answer = answerDAO.GetAnswerByID(id);
-        Ticket ticket = answer.getTicket();
-        User sentBy = answerDAO.GetAnswerByID(id).getUser();
-
         model.addAttribute("logged_user", username);
-        model.addAttribute("answerText", answer.getAnswer_text());
-        model.addAttribute("answerCreatedByName", sentBy.getFirst_name() + " " +
-                sentBy.getLast_name() + " " +
-                sentBy.getPassword());
-        model.addAttribute("answerCreatedByID", sentBy.getId());
-        model.addAttribute("ticketText", ticket.getTicket_text());
+        model.addAttribute("answer", answerDAO.GetAnswerByID(id));
 
         return "tickets/oneTicketToCheck";
     }
@@ -120,7 +112,8 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
-        return "";
+        model.addAttribute("");
+        return "tickets/ticketsSent";
     }
 
     @GetMapping("/sent/{id}")
@@ -145,7 +138,7 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
-        return "";
+        return "tickets/ticketsSentOne";
     }
 
 
