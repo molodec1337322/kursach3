@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,16 +52,15 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
-        List<Answer> answers = answerDAO.getAllAnswers();
-
         model.addAttribute("logged_user", username);
-        model.addAttribute("answersToCheck", answers);
+        model.addAttribute("answersToCheck", answerDAO.getAllAnswers());
 
         return "tickets/ticketsToCheck";
     }
 
     @GetMapping("/toCheck/{id}")
-    public String GetOneTicketToCheck(Authentication authentication,
+    public String GetOneTicketToCheck(@PathVariable("id") int id,
+                                      Authentication authentication,
                                       Model model){
 
         boolean isAuthenticated = false;
@@ -81,9 +81,9 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
-
-
         model.addAttribute("logged_user", username);
+        model.addAttribute("answerText", answerDAO.GetAnswerByID(id).getAnswer_text());
+        model.addAttribute("answerCreatedBy", answerDAO.GetAnswerByID(id).getUser());
 
         return "tickets/oneTicketToCheck";
     }
