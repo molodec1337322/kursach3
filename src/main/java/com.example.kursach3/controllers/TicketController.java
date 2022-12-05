@@ -3,6 +3,8 @@ package com.example.kursach3.controllers;
 import com.example.kursach3.dao.AnswerDAO;
 import com.example.kursach3.dao.TicketDAO;
 import com.example.kursach3.models.Answer;
+import com.example.kursach3.models.Ticket;
+import com.example.kursach3.models.User;
 import com.example.kursach3.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -81,11 +83,69 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        Answer answer = answerDAO.GetAnswerByID(id);
+        Ticket ticket = answer.getTicket();
+        User sentBy = answerDAO.GetAnswerByID(id).getUser();
+
         model.addAttribute("logged_user", username);
-        model.addAttribute("answerText", answerDAO.GetAnswerByID(id).getAnswer_text());
-        model.addAttribute("answerCreatedBy", answerDAO.GetAnswerByID(id).getUser());
+        model.addAttribute("answerText", answer.getAnswer_text());
+        model.addAttribute("answerCreatedByName", sentBy.getFirst_name() + " " +
+                sentBy.getLast_name() + " " +
+                sentBy.getPassword());
+        model.addAttribute("answerCreatedByID", sentBy.getId());
+        model.addAttribute("ticketText", ticket.getTicket_text());
 
         return "tickets/oneTicketToCheck";
+    }
+
+    @GetMapping("/sent")
+    public String GetSentTickets(Authentication authentication,
+                                 Model model){
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        model.addAttribute("logged_user", username);
+        return "";
+    }
+
+    @GetMapping("/sent/{id}")
+    public String GetOneSentTicket(Authentication authentication,
+                                   Model model){
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        model.addAttribute("logged_user", username);
+        return "";
     }
 
 
