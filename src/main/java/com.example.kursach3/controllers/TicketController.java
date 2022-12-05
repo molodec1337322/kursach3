@@ -1,6 +1,7 @@
 package com.example.kursach3.controllers;
 
 import com.example.kursach3.dao.AnswerDAO;
+import com.example.kursach3.dao.CommentsDAO;
 import com.example.kursach3.dao.TicketDAO;
 import com.example.kursach3.models.Answer;
 import com.example.kursach3.models.Ticket;
@@ -25,12 +26,14 @@ public class TicketController {
     private UserDetailsServiceImpl userDetailsService;
     private TicketDAO ticketDAO;
     private AnswerDAO answerDAO;
+    private CommentsDAO commentsDAO;
 
     @Autowired
-    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService, TicketDAO ticketDAO, AnswerDAO answerDAO){
+    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService, TicketDAO ticketDAO, AnswerDAO answerDAO, CommentsDAO commentsDAO){
         this.userDetailsService = userDetailsService;
         this.ticketDAO = ticketDAO;
         this.answerDAO = answerDAO;
+        this.commentsDAO = commentsDAO;
     }
 
     @GetMapping("/toCheck")
@@ -86,6 +89,7 @@ public class TicketController {
 
         model.addAttribute("logged_user", username);
         model.addAttribute("answer", answerDAO.GetAnswerByID(id));
+        model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
 
         return "tickets/oneTicketToCheck";
     }
@@ -117,7 +121,8 @@ public class TicketController {
     }
 
     @GetMapping("/sent/{id}")
-    public String GetOneSentTicket(Authentication authentication,
+    public String GetOneSentTicket(@PathVariable("id") int id,
+                                   Authentication authentication,
                                    Model model){
         boolean isAuthenticated = false;
         boolean isTeacher = false;
@@ -138,6 +143,7 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
+        model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
         return "tickets/ticketsSentOne";
     }
 
