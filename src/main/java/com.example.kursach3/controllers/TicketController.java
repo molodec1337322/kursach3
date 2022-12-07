@@ -151,9 +151,14 @@ public class TicketController {
                                           Model model){
         return "";
     }
-    
+
     public String CreateNewTicket(Authentication authentication,
                                   Model model){
+        return "";
+    }
+
+    public String CreateNewAnswerToTicket(Authentication authentication,
+                                          Model model){
         return "";
     }
 
