@@ -147,6 +147,16 @@ public class TicketController {
         return "tickets/ticketsSentOne";
     }
 
+    public String GetTicketByUIDToStudent(Authentication authentication,
+                                          Model model){
+        return "";
+    }
+    
+    public String CreateNewTicket(Authentication authentication,
+                                  Model model){
+        return "";
+    }
+
 
 
     boolean isUserTeacher(Authentication authentication){
