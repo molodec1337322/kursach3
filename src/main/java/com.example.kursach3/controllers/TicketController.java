@@ -33,12 +33,18 @@ public class TicketController {
         this.commentsDAO = commentsDAO;
     }
 
+    /*
+    Создание нового билета
+     */
     @GetMapping("/newTicket")
     public String CreateNewTicket(Authentication authentication,
                                   Model model){
         return "";
     }
 
+    /*
+    Список присланных билетов на проверку со стороны преподавателя
+     */
     @GetMapping("/toCheck")
     public String GetTicketsToCheck(Authentication authentication,
                                     Model model){
@@ -97,6 +103,9 @@ public class TicketController {
         return "tickets/oneTicketToCheck";
     }
 
+    /*
+    Список отправленных ответов на проверку со стороны учащегося
+     */
     @GetMapping("/sent")
     public String GetSentTickets(Authentication authentication,
                                  Model model){
@@ -123,6 +132,9 @@ public class TicketController {
         return "tickets/ticketsSent";
     }
 
+    /*
+    Просмотр конкретного отправленного билета
+     */
     @GetMapping("/sent/{id}")
     public String GetOneSentTicket(@PathVariable("id") int id,
                                    Authentication authentication,
@@ -150,6 +162,9 @@ public class TicketController {
         return "tickets/ticketsSentOne";
     }
 
+    /*
+    Поиск билета по UID
+     */
     @GetMapping("/ticket/getTicket")
     public String GetTicketByUIDToStudent(Authentication authentication,
                                           Model model){
@@ -175,6 +190,10 @@ public class TicketController {
         return "";
     }
 
+    /*
+    Поиск билета по UID
+    Получение и редирект на форму выполнения задания
+     */
     @PostMapping("/ticket/getTicket")
     public String GetTicketByUIDToStudent(@RequestParam("UID") String UID,
                                           Authentication authentication,
@@ -208,6 +227,9 @@ public class TicketController {
         }
     }
 
+    /*
+    Форма выполнения билета
+     */
     @GetMapping("/ticket/{uid}/")
     public String CreateNewAnswerToTicket(Authentication authentication,
                                           Model model){
