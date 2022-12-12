@@ -12,10 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,12 @@ public class TicketController {
         this.ticketDAO = ticketDAO;
         this.answerDAO = answerDAO;
         this.commentsDAO = commentsDAO;
+    }
+
+    @GetMapping("/newTicket")
+    public String CreateNewTicket(Authentication authentication,
+                                  Model model){
+        return "";
     }
 
     @GetMapping("/toCheck")
@@ -147,21 +150,69 @@ public class TicketController {
         return "tickets/ticketsSentOne";
     }
 
+    @GetMapping("/ticket/getTicket")
     public String GetTicketByUIDToStudent(Authentication authentication,
                                           Model model){
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(!isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        model.addAttribute("logged_user", username);
         return "";
     }
 
-    public String CreateNewTicket(Authentication authentication,
-                                  Model model){
-        return "";
+    @PostMapping("/ticket/getTicket")
+    public String GetTicketByUIDToStudent(@RequestParam("UID") String UID,
+                                          Authentication authentication,
+                                          Model model){
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        //String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            //username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(!isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        Ticket ticket = ticketDAO.getTicketByUID(UID);
+
+        if(ticket == null){
+            return "redirect:/not_found";
+        }
+
+        else{
+            return "redirect:/tickets/ticket/{uid}";
+        }
     }
 
+    @GetMapping("/ticket/{uid}/")
     public String CreateNewAnswerToTicket(Authentication authentication,
                                           Model model){
         return "";
     }
-
 
 
     boolean isUserTeacher(Authentication authentication){

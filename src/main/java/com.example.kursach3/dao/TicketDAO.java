@@ -28,4 +28,8 @@ public class TicketDAO {
     public List<Ticket> getAllTickets(){
         return sessionFactory.getCurrentSession().createQuery("from Tickets").list();
     }
+
+    public Ticket getTicketByUID(String uid){
+        return (Ticket) sessionFactory.getCurrentSession().createQuery("from Tickets where UID='" + uid + "'").uniqueResult();
+    }
 }
