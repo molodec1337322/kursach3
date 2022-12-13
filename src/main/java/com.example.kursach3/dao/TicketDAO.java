@@ -26,10 +26,10 @@ public class TicketDAO {
     }
 
     public List<Ticket> getAllTickets(){
-        return sessionFactory.getCurrentSession().createQuery("from Tickets").list();
+        return sessionFactory.getCurrentSession().createQuery("from Ticket").list();
     }
 
     public Ticket getTicketByUID(String uid){
-        return (Ticket) sessionFactory.getCurrentSession().createQuery("from Tickets where UID='" + uid + "'").uniqueResult();
+        return (Ticket) sessionFactory.getCurrentSession().createQuery("from Ticket where UID='" + uid + "'").uniqueResult();
     }
 }

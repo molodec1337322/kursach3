@@ -27,6 +27,6 @@ public class AnswerDAO {
     }
 
     public List<Answer> getAllAnswers(){
-        return sessionFactory.getCurrentSession().createQuery("from Answers").list();
+        return sessionFactory.getCurrentSession().createQuery("from Answer").list();
     }
 }

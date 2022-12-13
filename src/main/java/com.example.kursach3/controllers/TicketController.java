@@ -39,7 +39,30 @@ public class TicketController {
     @GetMapping("/newTicket")
     public String CreateNewTicket(Authentication authentication,
                                   Model model){
-        return "";
+
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(!isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        model.addAttribute("logged_user", username);
+        model.addAttribute("answersToCheck", answerDAO.getAllAnswers());
+        model.addAttribute("tickets", ticketDAO.getAllTickets());
+
+        return "tickets/создание-варианта";
     }
 
     /*
@@ -73,6 +96,9 @@ public class TicketController {
         return "tickets/ticketsToCheck";
     }
 
+    /*
+    Проверка билета преподавателем
+     */
     @GetMapping("/toCheck/{id}")
     public String GetOneTicketToCheck(@PathVariable("id") int id,
                                       Authentication authentication,
@@ -100,7 +126,7 @@ public class TicketController {
         model.addAttribute("answer", answerDAO.GetAnswerByID(id));
         model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
 
-        return "tickets/oneTicketToCheck";
+        return "tickets/Ответ-на-задание";
     }
 
     /*
@@ -159,7 +185,7 @@ public class TicketController {
 
         model.addAttribute("logged_user", username);
         model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
-        return "tickets/ticketsSentOne";
+        return "tickets/Ответ-на-задание";
     }
 
     /*
@@ -187,7 +213,7 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
-        return "";
+        return "tickets/Указание-варианта";
     }
 
     /*
@@ -233,7 +259,7 @@ public class TicketController {
     @GetMapping("/ticket/{uid}/")
     public String CreateNewAnswerToTicket(Authentication authentication,
                                           Model model){
-        return "";
+        return "tickets/Ответ-на-задание";
     }
 
 

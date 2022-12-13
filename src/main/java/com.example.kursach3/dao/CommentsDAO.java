@@ -27,6 +27,6 @@ public class CommentsDAO {
     }
 
     public List<Answer> GetCommentsAnswerID(int id){
-        return sessionFactory.getCurrentSession().createQuery("from Comments where answer_id=" + id).list();
+        return sessionFactory.getCurrentSession().createQuery("from Comment where answer_id=" + id).list();
     }
 }
