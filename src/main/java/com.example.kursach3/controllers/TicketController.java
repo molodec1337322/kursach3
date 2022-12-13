@@ -39,6 +39,37 @@ public class TicketController {
     }
 
     /*
+    начальная страница со списком работ преподавателя
+     */
+    @GetMapping("/")
+    public String TicketsList(Authentication authentication,
+                              Model model){
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        model.addAttribute("subjectsList", subjectDAO.getAllSubjectsList());
+        model.addAttribute("logged_user", username);
+
+        if(!isTeacher){
+            return "tickets/ticketsSent";
+        }
+        else{
+            return "tickets/ticketsSent";
+        }
+    }
+
+    /*
     Создание нового билета
      */
     @GetMapping("/newTicket")
@@ -63,6 +94,7 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        model.addAttribute("subjectsList", subjectDAO.getAllSubjectsList());
         model.addAttribute("logged_user", username);
 
         return "tickets/создание-варианта";
@@ -97,7 +129,8 @@ public class TicketController {
         }
 
         UserDetails principals = (UserDetails) authentication.getPrincipal();
-        User user = userDAO.getUserByLogin(principals.getUsername());
+        User user = userDAO.getUserByEmail(principals.getUsername());
+        Subject subject = subjectDAO.getSubjectByID(subjectId);
 
         Ticket ticket = new Ticket();
         ticket.setCreated_at(new Date());
@@ -105,14 +138,16 @@ public class TicketController {
         ticket.setTicket_UID(java.util.UUID.randomUUID().toString());
         ticket.setTicket_text(ticketText);
         ticket.setTopic(ticketTopic);
-        ticket.setSubject(subjectDAO.getSubjectByID(subjectId));
+        ticket.setSubject(subject);
         ticket.setUser(user);
+
+        System.out.println();
 
         ticketDAO.createTicket(ticket);
 
         model.addAttribute("logged_user", username);
 
-        return "tickets/создание-варианта";
+        return "redirect:/ ";
     }
 
     /*

@@ -84,7 +84,7 @@
     <section class="u-clearfix u-section-1" id="sec-9994">
       <div class="u-align-left u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-expanded-width u-form u-form-1">
-          <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+          <form action="/tickets/newTicket" method="POST" class="" source="custom" name="form" style="padding: 10px;">
             <input type="hidden" id="siteId" name="siteId" value="831827426">
             <input type="hidden" id="pageId" name="pageId" value="63622427">
             <div style="margin-top: 10px;" class="u-form-email u-form-group">
@@ -98,16 +98,16 @@
               <div style="margin-top: 10px;" class="u-form-group u-form-select u-form-group-6">
                   <label for="text-6a90" class="u-form-control-hidden u-label"></label>
                   <div class="u-form-select-wrapper">
-                      <select id="text-6a90" name="post" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                      <select id="text-6a90" name="subject" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
                           <option th:each="subject : ${subjectsList}" th:value="${subject.getId()}" th:text="${subject.getSubject_name()}"></option>
                       </select>
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
                   </div>
+              </div>
             <div style="margin-top: 10px;" class="u-align-left u-form-group u-form-submit">
               <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
-            <input type="hidden" value="" name="recaptchaResponse">
           </form>
         </div>
       </div>
