@@ -13,7 +13,7 @@ public class Subject {
     private int id;
 
     @Column(name = "subject_name", nullable = false)
-    private int subject_name;
+    private String subject_name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
     private Set<Ticket> tickets;
@@ -25,7 +25,7 @@ public class Subject {
         return id;
     }
 
-    public int getSubject_name() {
+    public String getSubject_name() {
         return subject_name;
     }
 
@@ -33,7 +33,7 @@ public class Subject {
         this.id = id;
     }
 
-    public void setSubject_name(int subject_name) {
+    public void setSubject_name(String subject_name) {
         this.subject_name = subject_name;
     }
 }

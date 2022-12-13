@@ -70,6 +70,13 @@ public class Ticket {
         this.answers = answers;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 
     public int getId() {
         return id;
@@ -99,4 +106,11 @@ public class Ticket {
         return answers;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
 }

@@ -25,6 +25,10 @@ public class TicketDAO {
         return sessionFactory.getCurrentSession().get(Ticket.class, id);
     }
 
+    public void createTicket(Ticket ticket){
+        sessionFactory.getCurrentSession().persist(ticket);
+    }
+
     public List<Ticket> getAllTickets(){
         return sessionFactory.getCurrentSession().createQuery("from Ticket").list();
     }
