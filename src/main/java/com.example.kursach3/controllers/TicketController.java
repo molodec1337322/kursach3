@@ -1,8 +1,12 @@
 package com.example.kursach3.controllers;
 
 
+import com.example.kursach3.dao.AnswerDAO;
+import com.example.kursach3.dao.CommentsDAO;
+import com.example.kursach3.dao.SubjectDAO;
+import com.example.kursach3.dao.TicketDAO;
+import com.example.kursach3.dao.UserDAO;
 import com.example.kursach3.models.Answer;
-import com.example.kursach3.dao.*;
 import com.example.kursach3.models.Subject;
 import com.example.kursach3.models.Ticket;
 import com.example.kursach3.models.User;
@@ -39,9 +43,9 @@ public class TicketController {
     }
 
     /*
-    начальная страница со списком работ преподавателя
+    начальная страница с начальной страницей
      */
-    @GetMapping("/")
+    @GetMapping("/redirect")
     public String TicketsList(Authentication authentication,
                               Model model){
         boolean isAuthenticated = false;
@@ -62,11 +66,55 @@ public class TicketController {
         model.addAttribute("logged_user", username);
 
         if(!isTeacher){
-            return "tickets/ticketsSent";
+            return "redirect:/tickets/sent";
         }
         else{
-            return "tickets/ticketsSent";
+            return "redirect:/tickets/createdTickets";
         }
+    }
+
+    /*
+
+
+
+
+
+    Роутинг преподаватели
+
+
+
+
+
+     */
+
+    /*
+    Список созданных билетов преподавателем
+     */
+    @GetMapping("/newTicket")
+    public String CreatedTickets(Authentication authentication,
+                                 Model model){
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(!isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        model.addAttribute("subjectsList", subjectDAO.getAllSubjectsList());
+        model.addAttribute("logged_user", username);
+
+        return "tickets/создание-варианта";
     }
 
     /*
@@ -147,7 +195,7 @@ public class TicketController {
 
         model.addAttribute("logged_user", username);
 
-        return "redirect:/ ";
+        return "redirect:/tickets/createdTickets";
     }
 
     /*
@@ -214,6 +262,20 @@ public class TicketController {
 
         return "tickets/Ответ-на-задание";
     }
+
+    /*
+
+
+
+
+
+    Роутинг для учащегося
+
+
+
+
+
+     */
 
     /*
     Список отправленных ответов на проверку со стороны учащегося
