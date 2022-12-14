@@ -90,7 +90,7 @@ public class TicketController {
     /*
     Список созданных билетов преподавателем
      */
-    @GetMapping("/newTicket")
+    @GetMapping("/createdTickets")
     public String CreatedTickets(Authentication authentication,
                                  Model model){
         boolean isAuthenticated = false;
