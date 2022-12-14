@@ -50,20 +50,15 @@ public class TicketController {
                               Model model){
         boolean isAuthenticated = false;
         boolean isTeacher = false;
-        String username = null;
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
             isTeacher = isUserTeacher(authentication);
         }
 
         if(!isAuthenticated){
             return "redirect:/auth/login";
         }
-
-        model.addAttribute("subjectsList", subjectDAO.getAllSubjectsList());
-        model.addAttribute("logged_user", username);
 
         if(!isTeacher){
             return "redirect:/tickets/sent";
@@ -111,10 +106,13 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
-        model.addAttribute("subjectsList", subjectDAO.getAllSubjectsList());
+        UserDetails principals = (UserDetails) authentication.getPrincipal();
+        User user = userDAO.getUserByEmail(principals.getUsername());
+
+        model.addAttribute("ticketsList", ticketDAO.getAllTicketsByUser(user.getId()));
         model.addAttribute("logged_user", username);
 
-        return "tickets/создание-варианта";
+        return "tickets/ticketsCreatedList";
     }
 
     /*

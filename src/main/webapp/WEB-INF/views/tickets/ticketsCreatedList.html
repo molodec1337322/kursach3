@@ -37,11 +37,11 @@
 </defs></svg>
             </a>
           </div>
-            <div class="u-custom-menu u-nav-container">
-                <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><label class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:text="${logged_user}" style="padding: 10px 106px;"></label>
-                </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/logout}" style="padding: 10px 105px 10px 106px;">Выйти</a>
-                </li></ul>
-            </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><label class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:text="${logged_user}" style="padding: 10px 106px;"></label>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/logout}" style="padding: 10px 105px 10px 106px;">Выйти</a>
+</li></ul>
+          </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
@@ -63,33 +63,39 @@
 </defs></svg>
             </a>
           </div>
-            <div class="u-custom-menu u-nav-container">
-                <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
-                </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
-                </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></ul>
-            </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></ul>
+          </div>
           <div class="u-custom-menu u-nav-container-collapse">
-              <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                  <div class="u-inner-container-layout u-sidenav-overflow">
-                      <div class="u-menu-close"></div>
-                      <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
-                      </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
-                      </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></ul>
-                  </div>
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></ul>
               </div>
+            </div>
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
           </div>
         </nav>
       </div></header>
     <section class="u-clearfix u-section-1" id="sec-a232">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">Отосланные работы</h2>
-        <div class="u-align-left u-container-style u-group u-palette-5-light-2 u-group-1">
-          <div class="u-container-layout u-container-layout-1">
-            <p class="u-text u-text-2">Название билета</p>
-            <a href="https://nicepage.cc" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Редактировать работу</a>
+        <h2 class="u-text u-text-default u-text-1">Список билетов</h2>
+
+          <div th:each="ticket : ${ticketsList}">
+
+              <div style="margin-top: 5px; padding-bottom: 5px;" class="u-align-left u-container-style u-group u-palette-5-light-2 u-group-1">
+                  <div class="u-container-layout u-container-layout-1">
+                      <p class="u-text u-text-2" th:text="${ticket.getTopic()}"></p>
+                      <a href="https://nicepage.cc" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Редактировать работу</a>
+                  </div>
+              </div>
+
           </div>
-        </div>
+
       </div>
     </section>
     
