@@ -43,7 +43,7 @@ public class TicketController {
     }
 
     /*
-    начальная страница с начальной страницей
+    начальная страница с редиректом
      */
     @GetMapping("/redirect")
     public String TicketsList(Authentication authentication,
