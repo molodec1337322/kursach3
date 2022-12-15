@@ -196,6 +196,32 @@ public class TicketController {
         return "redirect:/tickets/createdTickets";
     }
 
+    @DeleteMapping("/createdTickets/delete/{id}")
+    public String DeleteTicket(@RequestParam(value = "id") int id,
+                               Authentication authentication,
+                               Model model){
+
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(!isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        ticketDAO.deleteTicketByID(id);
+
+        return "redirect:/tickets/createdTickets";
+    }
+
     /*
     Список присланных билетов на проверку со стороны преподавателя
      */

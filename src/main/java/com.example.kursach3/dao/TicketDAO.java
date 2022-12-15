@@ -40,4 +40,8 @@ public class TicketDAO {
     public List<Ticket> getAllTicketsByUser(int user_id){
         return sessionFactory.getCurrentSession().createQuery("from Ticket where user_id=" + user_id).list();
     }
+
+    public void deleteTicketByID(int id){
+        sessionFactory.getCurrentSession().delete(getTicketByID(id));
+    }
 }

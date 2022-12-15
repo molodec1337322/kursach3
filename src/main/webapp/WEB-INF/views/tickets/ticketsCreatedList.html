@@ -90,7 +90,7 @@
               <div style="margin-top: 5px; padding-bottom: 5px;" class="u-align-left u-container-style u-group u-palette-5-light-2 u-group-1">
                   <div class="u-container-layout u-container-layout-1">
                       <p class="u-text u-text-2" th:text="${ticket.getTopic()}"></p>
-                      <a href="https://nicepage.cc" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Редактировать работу</a>
+                      <a th:href="${'/tickets/editCreatedTicket/' + ticket.getId()}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Удалить</a>
                   </div>
               </div>
 
