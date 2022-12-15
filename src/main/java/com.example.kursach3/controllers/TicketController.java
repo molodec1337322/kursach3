@@ -94,7 +94,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 
@@ -128,7 +130,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 
@@ -162,7 +166,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 
@@ -223,7 +229,7 @@ public class TicketController {
     }
 
     /*
-    Список присланных билетов на проверку со стороны преподавателя
+    Список присланных билетов на проверку к преподавателю
      */
     @GetMapping("/toCheck")
     public String GetTicketsToCheck(Authentication authentication,
@@ -235,7 +241,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 
@@ -248,8 +256,8 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
-        model.addAttribute("answersToCheck", answerDAO.getAllAnswers());
-        model.addAttribute("tickets", ticketDAO.getAllTickets());
+        model.addAttribute("answersList", answerDAO.getAllAnswers());
+        model.addAttribute("ticketsList", ticketDAO.getAllTickets());
 
         return "tickets/ticketsToCheck";
     }
@@ -268,7 +276,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 
@@ -284,7 +294,7 @@ public class TicketController {
         model.addAttribute("answer", answerDAO.GetAnswerByID(id));
         model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
 
-        return "tickets/Ответ-на-задание";
+        return "tickets/checkAnswer";
     }
 
     /*
@@ -313,7 +323,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 
@@ -357,7 +369,7 @@ public class TicketController {
 
         model.addAttribute("logged_user", username);
         model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
-        return "tickets/Ответ-на-задание";
+        return "tickets/createAnswer";
     }
 
     /*
@@ -372,7 +384,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 
