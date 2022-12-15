@@ -147,7 +147,7 @@ public class TicketController {
         model.addAttribute("subjectsList", subjectDAO.getAllSubjectsList());
         model.addAttribute("logged_user", username);
 
-        return "tickets/создание-варианта";
+        return "tickets/createTicket";
     }
 
     /*
@@ -202,7 +202,7 @@ public class TicketController {
         return "redirect:/tickets/createdTickets";
     }
 
-    @DeleteMapping("/createdTickets/delete/{id}")
+    @GetMapping("/createdTickets/delete/{id}")
     public String DeleteTicket(@RequestParam(value = "id") int id,
                                Authentication authentication,
                                Model model){

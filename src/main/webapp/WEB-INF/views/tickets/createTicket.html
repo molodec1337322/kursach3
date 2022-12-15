@@ -6,7 +6,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>создание варианта</title>
+    <title>создание билета</title>
       <link rel="stylesheet" href="../resources/css/nicepage.css" th:href="@{/resources/css/nicepage.css}" media="screen">
       <link rel="stylesheet" href="../resources/css/Войти.css" th:href="@{/resources/css/создание-варианта.css}" media="screen">
       <script class="u-script" type="text/javascript" th:src="@{/resources/js/jquery.js}" defer=""></script>
@@ -38,9 +38,9 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Войти.html" style="padding: 10px 106px;">Войти</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="padding: 10px 105px 10px 106px;">Регистрация</a>
-</li></ul>
+              <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><label class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:text="${logged_user}" style="padding: 10px 106px;"></label>
+              </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/logout}" style="padding: 10px 105px 10px 106px;">Выйти</a>
+              </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
@@ -64,17 +64,17 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Сделаные работы</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Пройти указаный вариант</a>
-</li></ul>
+              <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
+              </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
+              </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Сделаные работы</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Пройти указаный вариант</a>
-</li></ul>
+                  <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
+                  </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
+                  </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></li></ul>
               </div>
             </div>
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -84,17 +84,21 @@
     <section class="u-clearfix u-section-1" id="sec-9994">
       <div class="u-align-left u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-expanded-width u-form u-form-1">
+            <h2>Создание нового билета</h2>
           <form action="/tickets/newTicket" method="POST" class="" source="custom" name="form" style="padding: 10px;">
             <input type="hidden" id="siteId" name="siteId" value="831827426">
             <input type="hidden" id="pageId" name="pageId" value="63622427">
+              <p>Название билета</p>
             <div style="margin-top: 10px;" class="u-form-email u-form-group">
               <label for="email-1dda" class="u-form-control-hidden u-label"></label>
               <input type="text" placeholder="Название билета" id="email-1dda" name="ticketTopic" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
+              <p>Текст задания</p>
             <div style="margin-top: 10px;" class="u-form-group u-form-message">
               <label for="message-1dda" class="u-form-control-hidden u-label"></label>
               <textarea placeholder="Текст заданий" rows="4" cols="50" id="message-1dda" name="ticketText" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
             </div>
+              <p>Дисциплина</p>
               <div style="margin-top: 10px;" class="u-form-group u-form-select u-form-group-6">
                   <label for="text-6a90" class="u-form-control-hidden u-label"></label>
                   <div class="u-form-select-wrapper">
