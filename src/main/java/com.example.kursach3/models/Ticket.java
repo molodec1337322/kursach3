@@ -24,7 +24,7 @@ public class Ticket {
     @Column(name = "topic", nullable = false)
     private String topic;
 
-    @Column(name = "ticket_text", nullable = false)
+    @Column(name = "ticket_text", nullable = false, columnDefinition="TEXT")
     private String ticket_text;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")

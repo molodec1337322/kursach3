@@ -26,7 +26,7 @@ public class Comment {
     @Column(name = "edited_at", nullable = false)
     private Date edited_at;
 
-    @Column(name = "comment_text", nullable = false)
+    @Column(name = "comment_text", nullable = false, columnDefinition="TEXT")
     private String comment_text;
 
     public Comment() {

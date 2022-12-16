@@ -20,7 +20,7 @@ public class Answer {
     @Column(name = "edited_at", nullable = false)
     private Date edited_at;
 
-    @Column(name = "answer_text", nullable = false)
+    @Column(name = "answer_text", nullable = false, columnDefinition="TEXT")
     private String answer_text;
 
     @Column(name = "grade")

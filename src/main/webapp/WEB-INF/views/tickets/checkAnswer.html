@@ -105,7 +105,7 @@
                       </div>
                   </div>
                 <div class="u-align-left u-form-group u-form-submit">
-                  <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>
+                  <a href="#" class="u-btn u-btn-submit u-button-style">Оценить</a>
                   <input type="submit" value="submit" class="u-form-control-hidden">
                 </div>
                 <input type="hidden" value="" name="recaptchaResponse">
@@ -118,7 +118,7 @@
           <div style="margin-top: 20px;" class="u-expanded-width u-form u-form-1">
 
               <h4>Оставить комментарий</h4>
-              <form action="${'/tickets/answer/' + answer.getId() + '/addComment'}" method="POST" class="" source="custom" name="form" style="padding: 10px;">
+              <form th:action="${'/tickets/answers/' + answer.getId() + '/addComment'}" method="POST" class="" source="custom" name="form" style="padding: 10px;">
                   <p>Текст комментария</p>
                   <div class="u-form-group u-form-message">
                       <label for="message-1dda" class="u-form-control-hidden u-label"></label>
@@ -136,9 +136,20 @@
           <div style="margin-top: 20px;" class="u-expanded-width u-form u-form-1">
 
               <h4>Комментарии</h4>
-              <p></p>
-              <div>
+              <div th:each="comment : ${commentsList}">
+                  <div style="margin-top: 5px; padding-bottom: 5px;" class="u-align-left u-container-style u-group u-palette-5-light-2 u-group-1">
+                      <div>
+                        <p th:text="${comment.getUser().getLast_name() + ' ' + comment.getUser().getFirst_name() + ' ' + comment.getUser().getPatronym() + ': '}"></p>
+                      </div>
 
+                      <div>
+                        <p th:text="${comment.getComment_text()}"></p>
+                      </div>
+
+                      <div>
+                        <p th:text="${' Дата: ' + comment.getEdited_at()}"></p>
+                      </div>
+                  </div>
               </div>
 
           </div>

@@ -100,7 +100,7 @@ public class TicketController {
     /*
     создание коммента
      */
-    @PostMapping("/tickets/answers/{id}/addComment")
+    @PostMapping("/answers/{id}/addComment")
     public String CreateCommentToAnswer(@PathVariable("id") int id,
                                         @RequestParam("commentText") String commentText,
                                         Authentication authentication,
@@ -132,10 +132,10 @@ public class TicketController {
 
 
         if(isTeacher){
-            return "redirect:/tickets/toCheck" + id;
+            return "redirect:/tickets/toCheck/" + id;
         }
         else{
-            return "redirect:/tickets/sent" + id;
+            return "redirect:/tickets/sent/" + id;
         }
     }
 
@@ -345,7 +345,7 @@ public class TicketController {
                     answer)
             );
         }
-        
+
 
         model.addAttribute("logged_user", username);
         model.addAttribute("answersList", answersInfo);
@@ -387,7 +387,7 @@ public class TicketController {
                 answerDAO.GetAnswerByID(id).getUser().getPatronym());
         model.addAttribute("logged_user", username);
         model.addAttribute("answer", answerDAO.GetAnswerByID(id));
-        model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
+        model.addAttribute("commentsList", commentsDAO.GetCommentsAnswerID(id));
 
         return "tickets/checkAnswer";
     }
@@ -511,7 +511,8 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
-        model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
+        model.addAttribute("commentsList", commentsDAO.GetCommentsAnswerID(id));
+
         return "tickets/createAnswer";
     }
 
