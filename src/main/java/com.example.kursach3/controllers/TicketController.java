@@ -7,6 +7,7 @@ import com.example.kursach3.dao.SubjectDAO;
 import com.example.kursach3.dao.TicketDAO;
 import com.example.kursach3.dao.UserDAO;
 import com.example.kursach3.models.Answer;
+import com.example.kursach3.models.Comment;
 import com.example.kursach3.models.Subject;
 import com.example.kursach3.models.Ticket;
 import com.example.kursach3.models.User;
@@ -44,6 +45,8 @@ https://host:port ---> /auth ---> /login
                                 ---> /getTicket
                                 |
                                 ---> /createAnswer/{uid}
+                                |
+                                ---> answers/{id}/addComment/
 
  */
 
@@ -91,6 +94,48 @@ public class TicketController {
         }
         else{
             return "redirect:/tickets/createdTickets";
+        }
+    }
+
+    /*
+    создание коммента
+     */
+    @PostMapping("/tickets/answers/{id}/addComment")
+    public String CreateCommentToAnswer(@PathVariable("id") int id,
+                                        @RequestParam("commentText") String commentText,
+                                        Authentication authentication,
+                                        Model model){
+
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        UserDetails principals = (UserDetails) authentication.getPrincipal();
+        User user = userDAO.getUserByEmail(principals.getUsername());
+
+        Comment comment = new Comment();
+        comment.setAnswer(answerDAO.GetAnswerByID(id));
+        comment.setComment_text(commentText);
+        comment.setCreated_at(new Date());
+        comment.setEdited_at(new Date());
+        comment.setUser(user);
+
+        commentsDAO.CreateComment(comment);
+
+
+        if(isTeacher){
+            return "redirect:/tickets/toCheck" + id;
+        }
+        else{
+            return "redirect:/tickets/sent" + id;
         }
     }
 
@@ -609,6 +654,10 @@ public class TicketController {
 
         return "redirect:/tickets/sent";
     }
+
+
+
+
 
 
     boolean isUserTeacher(Authentication authentication){

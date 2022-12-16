@@ -1,6 +1,7 @@
 package com.example.kursach3.dao;
 
 import com.example.kursach3.models.Answer;
+import com.example.kursach3.models.Comment;
 import com.example.kursach3.models.Ticket;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,9 @@ public class CommentsDAO {
 
     public List<Answer> GetCommentsAnswerID(int id){
         return sessionFactory.getCurrentSession().createQuery("from Comment where answer_id=" + id).list();
+    }
+
+    public void CreateComment(Comment comment){
+        sessionFactory.getCurrentSession().persist(comment);
     }
 }
