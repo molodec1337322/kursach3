@@ -24,7 +24,7 @@ public class Answer {
     private String answer_text;
 
     @Column(name = "grade")
-    private int grade;
+    private Integer grade;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
     private Set<Comment> comments = new HashSet<>();
@@ -65,7 +65,7 @@ public class Answer {
         this.user = user;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 
@@ -97,7 +97,7 @@ public class Answer {
         return user;
     }
 
-    public int getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 }

@@ -34,7 +34,7 @@ public class TicketDAO {
     }
 
     public Ticket getTicketByUID(String uid){
-        return (Ticket) sessionFactory.getCurrentSession().createQuery("from Ticket where UID='" + uid + "'").uniqueResult();
+        return (Ticket) sessionFactory.getCurrentSession().createQuery("from Ticket where ticket_uid='" + uid + "'").uniqueResult();
     }
 
     public List<Ticket> getAllTicketsByUser(int user_id){

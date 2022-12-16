@@ -37,4 +37,8 @@ public class AnswerDAO {
     public List<Answer> getAllAnswersByUser(int user_id){
         return sessionFactory.getCurrentSession().createQuery("from Answer where user_id=" + user_id).list();
     }
+
+    public void createAnswer(Answer answer){
+        sessionFactory.getCurrentSession().persist(answer);
+    }
 }
