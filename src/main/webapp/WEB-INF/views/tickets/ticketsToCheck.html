@@ -89,7 +89,7 @@
 
             <div style="margin-top: 5px; padding-bottom: 5px;" class="u-align-left u-container-style u-group u-palette-5-light-2 u-group-1">
               <div class="u-container-layout u-container-layout-1">
-                  <p class="u-text u-text-2" th:text="${'Название билета:' + answer.getSecond()}"></p>
+                  <p class="u-text u-text-2" th:text="${'Название билета: ' + answer.getSecond()}"></p>
                   <p class="u-text u-text-2" th:text="${'Выполнил: ' + answer.getFirst()}"></p>
                   <p class="u-text u-text-2" th:text="${'Прислано: ' + answer.getThird().getEdited_at().toString()}"></p>
                   <p class="u-text u-text-2" th:if="${answer.getThird().getGrade()!=null}" th:text="${'Оценка: ' + answer.getThird().getGrade() + ' Дата оценивания: ' + answer.getThird().getGraded_at().toString()}"></p>
