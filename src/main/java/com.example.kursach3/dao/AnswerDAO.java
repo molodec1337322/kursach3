@@ -31,6 +31,6 @@ public class AnswerDAO {
     }
 
     public List<Answer> getAllAnswersByTicket(int ticket_id){
-        return sessionFactory.getCurrentSession().createQuery("from Ticket where user_id=" + ticket_id).list();
+        return sessionFactory.getCurrentSession().createQuery("from Answer where ticket_id=" + ticket_id).list();
     }
 }

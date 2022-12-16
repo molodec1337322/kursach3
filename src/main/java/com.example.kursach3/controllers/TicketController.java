@@ -263,15 +263,15 @@ public class TicketController {
         for (Ticket ticket: tickets) {
             answers.addAll(answerDAO.getAllAnswersByTicket(ticket.getId()));
         }
-        List<Triplet<String, String, Answer>> answersInfo = new ArrayList<>();
+        List<Triplet> answersInfo = new ArrayList<>();
         Ticket tempTicket = new Ticket();
         User tempUser = new User();
         for (Answer answer: answers){
             tempTicket = answer.getTicket();
-            tempUser = tempTicket.getUser();
+            tempUser = answer.getUser();
             answersInfo.add(new Triplet(tempUser.getLast_name() + " " + tempUser.getLast_name() + " " + tempUser.getPatronym(),
                     tempTicket.getTopic(),
-                    answer));
+                    answer.getId()));
         }
         
 
@@ -454,7 +454,7 @@ public class TicketController {
         }
 
         else{
-            return "redirect:/tickets/ticket/{uid}";
+            return "redirect:/tickets/ticket/" + UID;
         }
     }
 

@@ -85,13 +85,16 @@
       <div class="u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-default u-text-1">Работы на проверку</h2>
 
-          <div th:each="answer : ${answerList}">
-            <div class="u-align-left u-container-style u-group u-palette-5-light-2 u-group-1">
+          <div th:each="answer : ${answersList}">
+
+            <div style="margin-top: 5px; padding-bottom: 5px;" class="u-align-left u-container-style u-group u-palette-5-light-2 u-group-1">
               <div class="u-container-layout u-container-layout-1">
-                <p class="u-text u-text-2" th:text="${ticket.getTopic()}">Название билета</p>
-                <a th:href="${'/tickets/toCheck/' + answer.getId()}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Проверить</a>
+                  <p class="u-text u-text-2" th:text="${'Название билета:' + answer.getSecond()}"></p>
+                  <p class="u-text u-text-2" th:text="${'Выполнил: ' + answer.getFirst()}"></p>
+                  <a th:href="${'/tickets/toCheck/' + answer.getThird()}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Проверить</a>
               </div>
             </div>
+
           </div>
 
       </div>

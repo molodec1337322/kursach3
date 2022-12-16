@@ -1,18 +1,18 @@
 package com.example.kursach3.utils;
 
-public class Triplet<T, U, V> {
+public class Triplet {
 
-    private final T first;
-    private final U second;
-    private final V third;
+    private final String first;
+    private final String second;
+    private final int third;
 
-    public Triplet(T first, U second, V third) {
+    public Triplet(String first, String second, int third) {
         this.first = first;
         this.second = second;
         this.third = third;
     }
 
-    public T getFirst() { return first; }
-    public U getSecond() { return second; }
-    public V getThird() { return third; }
+    public String getFirst() { return first; }
+    public String getSecond() { return second; }
+    public int getThird() { return third; }
 }
