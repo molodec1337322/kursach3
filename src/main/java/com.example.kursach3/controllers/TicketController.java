@@ -427,6 +427,8 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+
+
         model.addAttribute("logged_user", username);
         return "tickets/findTicketByUID";
     }
@@ -460,7 +462,7 @@ public class TicketController {
         Ticket ticket = ticketDAO.getTicketByUID(UID);
 
         if(ticket == null){
-            return "redirect:/not_found";
+            return "redirect:/tickets/getTicket?not_found_error";
         }
 
         else{
@@ -474,7 +476,7 @@ public class TicketController {
     @GetMapping("/ticket/{uid}/")
     public String CreateNewAnswerToTicket(Authentication authentication,
                                           Model model){
-        return "tickets/Ответ-на-задание";
+        return "tickets/crateAnswer";
     }
 
 

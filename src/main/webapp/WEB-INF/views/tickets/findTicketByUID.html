@@ -38,9 +38,9 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Войти.html" style="padding: 10px 106px;">Войти</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="padding: 10px 105px 10px 106px;">Регистрация</a>
-</li></ul>
+              <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><label class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:text="${logged_user}" style="padding: 10px 106px;"></label>
+              </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" th:href="@{/auth/logout}" style="padding: 10px 105px 10px 106px;">Выйти</a>
+              </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
@@ -64,17 +64,17 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Сделаные работы</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Пройти указаный вариант</a>
-</li></ul>
+              <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/sent}">Сделанные работы</a>
+              </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/ticket/getTicket}">Найти работу по UID</a>
+              </li><li class="u-nav-item"></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Сделаные работы</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Пройти указаный вариант</a>
-</li></ul>
+                  <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/sent}">Сделанные работы</a>
+                  </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/ticket/getTicket}">Найти работу по UID</a>
+                  </li></ul>
               </div>
             </div>
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -89,15 +89,13 @@
             <input type="hidden" id="pageId" name="pageId" value="172630849">
             <div class="u-form-group u-form-name">
               <label for="name-a10a" class="u-form-control-hidden u-label"></label>
-              <input type="text" placeholder="Введите Ваше имя" id="name-a10a" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+              <input type="text" placeholder="Введите UID билета" id="name-a10a" name="UID" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
             <div class="u-align-center u-form-group u-form-submit">
               <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
-            <div class="u-form-send-message u-form-send-success"> Спасибо! Ваше сообщение отправлено. </div>
-            <div class="u-form-send-error u-form-send-message"> Отправка не удалась. Пожалуйста, исправьте ошибки и попробуйте еще раз. </div>
-            <input type="hidden" value="" name="recaptchaResponse">
+              <div th:if="${param.not_found_error}" class="u-align-center u-form-group u-form-submit"> Билет с указанным UID не найден. </div>
           </form>
         </div>
       </div>

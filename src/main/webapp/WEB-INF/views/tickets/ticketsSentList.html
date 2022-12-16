@@ -72,9 +72,9 @@
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Сделаные работы</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;">Пройти указаный вариант</a>
-</li></ul>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/sent}">Сделанные работы</a>
+                </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/ticket/getTicket}">Найти работу по UID</a>
+                </li></ul>
               </div>
             </div>
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -83,7 +83,7 @@
       </div></header>
     <section class="u-clearfix u-section-1" id="sec-a232">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">Отосланные работы</h2>
+        <h2 class="u-text u-text-default u-text-1">Сделанные работы</h2>
 
           <div th:each="answer : ${answersInfo}">
 
