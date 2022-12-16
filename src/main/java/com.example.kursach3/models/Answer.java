@@ -26,6 +26,9 @@ public class Answer {
     @Column(name = "grade")
     private Integer grade;
 
+    @Column(name = "graded_at")
+    private Date graded_at;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
     private Set<Comment> comments = new HashSet<>();
 
@@ -69,6 +72,10 @@ public class Answer {
         this.grade = grade;
     }
 
+    public void setGraded_at(Date graded_at) {
+        this.graded_at = graded_at;
+    }
+
     public int getId() {
         return id;
     }
@@ -99,5 +106,9 @@ public class Answer {
 
     public Integer getGrade() {
         return grade;
+    }
+
+    public Date getGraded_at() {
+        return graded_at;
     }
 }

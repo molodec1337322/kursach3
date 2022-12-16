@@ -91,8 +91,9 @@
               <div class="u-container-layout u-container-layout-1">
                   <p class="u-text u-text-2" th:text="${'Название билета:' + answer.getSecond()}"></p>
                   <p class="u-text u-text-2" th:text="${'Выполнил: ' + answer.getFirst()}"></p>
-                  <p class="u-text u-text-2" th:text="${'Прислано: ' + answer.getFourth()}"></p>
-                  <a th:href="${'/tickets/toCheck/' + answer.getThird()}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Проверить</a>
+                  <p class="u-text u-text-2" th:text="${'Прислано: ' + answer.getThird().getEdited_at().toString()}"></p>
+                  <p class="u-text u-text-2" th:if="${answer.getThird().getGrade()!=null}" th:text="${'Оценка: ' + answer.getThird().getGrade() + ' Дата оценивания: ' + answer.getThird().getGraded_at().toString()}"></p>
+                  <a th:href="${'/tickets/toCheck/' + answer.getThird().getId()}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-radius-5 u-btn-1">Оценить</a>
               </div>
             </div>
 

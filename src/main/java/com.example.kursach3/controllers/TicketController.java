@@ -11,6 +11,8 @@ import com.example.kursach3.models.Subject;
 import com.example.kursach3.models.Ticket;
 import com.example.kursach3.models.User;
 import com.example.kursach3.services.UserDetailsServiceImpl;
+import com.example.kursach3.utils.CustomFivefoldSet;
+import com.example.kursach3.utils.CustomSixfoldSet;
 import com.example.kursach3.utils.CustomTripleSet;
 import com.example.kursach3.utils.CustomQuadSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,16 +288,17 @@ public class TicketController {
         for (Ticket ticket: tickets) {
             answers.addAll(answerDAO.getAllAnswersByTicket(ticket.getId()));
         }
-        List<CustomQuadSet<String, String, Integer, String>> answersInfo = new ArrayList<>();
+        List<CustomTripleSet<String, String, Answer>> answersInfo = new ArrayList<>();
         Ticket tempTicket = new Ticket();
         User tempUser = new User();
         for (Answer answer: answers){
             tempTicket = answer.getTicket();
             tempUser = answer.getUser();
-            answersInfo.add(new CustomQuadSet<String, String, Integer, String>(tempUser.getLast_name() + " " + tempUser.getLast_name() + " " + tempUser.getPatronym(),
+            answersInfo.add(new CustomTripleSet<String, String, Answer>(
+                    tempUser.getLast_name() + " " + tempUser.getLast_name() + " " + tempUser.getPatronym(),
                     tempTicket.getTopic(),
-                    answer.getId(),
-                    answer.getEdited_at().toString()));
+                    answer)
+            );
         }
         
 
@@ -333,11 +336,49 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        model.addAttribute("ticketTopic", answerDAO.GetAnswerByID(id).getTicket().getTopic());
+        model.addAttribute("madeBy", answerDAO.GetAnswerByID(id).getUser().getFirst_name() + " " +
+                answerDAO.GetAnswerByID(id).getUser().getLast_name() + " " +
+                answerDAO.GetAnswerByID(id).getUser().getPatronym());
         model.addAttribute("logged_user", username);
         model.addAttribute("answer", answerDAO.GetAnswerByID(id));
         model.addAttribute("comments", commentsDAO.GetCommentsAnswerID(id));
 
         return "tickets/checkAnswer";
+    }
+
+    @PostMapping("/toCheck/{id}")
+    public String GetOneTicketToCheckPost(@PathVariable("id") int id,
+                                          @RequestParam("grade") String grade,
+                                          Authentication authentication,
+                                          Model model){
+
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(!isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        Answer answer = answerDAO.GetAnswerByID(id);
+        answer.setGrade(Integer.decode(grade));
+        answer.setGraded_at(new Date());
+        answerDAO.updateAnswer(answer);
+
+        return "redirect:/tickets/toCheck";
     }
 
     /*
@@ -384,9 +425,14 @@ public class TicketController {
         User user = userDAO.getUserByEmail(principals.getUsername());
 
         List<Answer> answers = answerDAO.getAllAnswersByUser(user.getId());
-        List<CustomTripleSet<String, String, String>> answersInfo = new ArrayList<>();
+        List<CustomTripleSet<String, String, Answer>> answersInfo = new ArrayList<>();
         for(Answer answer: answers){
-            answersInfo.add(new CustomTripleSet<String, String, String>(String.valueOf(answer.getId()), answer.getTicket().getTopic(), answer.getEdited_at().toString()));
+            answersInfo.add(new CustomTripleSet<String, String, Answer>(
+                    String.valueOf(answer.getId()),
+                    answer.getTicket().getTopic(),
+                    answer
+                    )
+            );
         }
 
         model.addAttribute("logged_user", username);

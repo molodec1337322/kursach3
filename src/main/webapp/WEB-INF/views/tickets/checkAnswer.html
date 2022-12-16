@@ -64,17 +64,17 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-              <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/sent}">Отправленные ответы</a>
-              </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/getTicket}">Пройти новый билет</a>
-              </li></ul>
+              <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
+              </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
+              </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                  <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/sent}">Отправленные ответы</a>
-                  </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/getTicket}">Пройти новый билет</a>
-                  </li></ul>
+                  <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/createdTickets}">Билеты</a>
+                  </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/toCheck}">Работы на проверку</a>
+                  </li><li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 64px;" th:href="@{/tickets/newTicket}">Создать новый билет</a></li></ul>
               </div>
             </div>
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -83,21 +83,34 @@
       </div></header>
     <section class="u-clearfix u-section-1" id="sec-9994">
       <div class="u-align-left u-clearfix u-sheet u-sheet-1">
-        <p class="u-text u-text-default u-text-1">Описание задания</p>
+          <h2 th:text="${ticketTopic}"></h2>
+          <p th:text="${'Работа выполнена: ' + madeBy}"></p>
+          <p class="u-text u-text-default u-text-1" th:text="${answer.getAnswer_text()}"></p>
+
         <div class="u-expanded-width u-form u-form-1">
-          <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-            <div class="u-form-group u-form-message">
-              <label for="message-1dda" class="u-form-control-hidden u-label"></label>
-              <textarea placeholder="Введите Ваше сообщение" rows="4" cols="50" id="message-1dda" name="message" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
-            </div>
+
+          <form action="#" method="POST" class="" source="custom" name="form" style="padding: 10px;">
+              <p>Оценка за задание</p>
+              <div style="margin-top: 10px;" class="u-form-group u-form-select u-form-group-6">
+                  <label for="text-6a90" class="u-form-control-hidden u-label"></label>
+                  <div class="u-form-select-wrapper">
+                      <select id="text-6a90" name="grade" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                          <option value="5">5</option>
+                          <option value="4">4</option>
+                          <option value="3">3</option>
+                          <option value="2">2</option>
+                          <option value="1">1</option>
+                      </select>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
+                  </div>
+              </div>
             <div class="u-align-left u-form-group u-form-submit">
               <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
-            <div class="u-form-send-message u-form-send-success"> Спасибо! Ваше сообщение отправлено. </div>
-            <div class="u-form-send-error u-form-send-message"> Отправка не удалась. Пожалуйста, исправьте ошибки и попробуйте еще раз. </div>
             <input type="hidden" value="" name="recaptchaResponse">
           </form>
+
         </div>
       </div>
     </section>

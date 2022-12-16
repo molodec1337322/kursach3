@@ -41,4 +41,8 @@ public class AnswerDAO {
     public void createAnswer(Answer answer){
         sessionFactory.getCurrentSession().persist(answer);
     }
+
+    public void updateAnswer(Answer answer){
+        sessionFactory.getCurrentSession().update(answer);
+    }
 }
