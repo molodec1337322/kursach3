@@ -29,4 +29,8 @@ public class AnswerDAO {
     public List<Answer> getAllAnswers(){
         return sessionFactory.getCurrentSession().createQuery("from Answer").list();
     }
+
+    public List<Answer> getAllAnswersByTicket(int ticket_id){
+        return sessionFactory.getCurrentSession().createQuery("from Ticket where user_id=" + ticket_id).list();
+    }
 }

@@ -11,15 +11,16 @@ import com.example.kursach3.models.Subject;
 import com.example.kursach3.models.Ticket;
 import com.example.kursach3.models.User;
 import com.example.kursach3.services.UserDetailsServiceImpl;
+import com.example.kursach3.utils.Triplet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/tickets")
@@ -255,9 +256,27 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        UserDetails principals = (UserDetails) authentication.getPrincipal();
+        User user = userDAO.getUserByEmail(principals.getUsername());
+        List<Ticket> tickets = ticketDAO.getAllTicketsByUser(user.getId());
+        List<Answer> answers = new ArrayList<>();
+        for (Ticket ticket: tickets) {
+            answers.addAll(answerDAO.getAllAnswersByTicket(ticket.getId()));
+        }
+        List<Triplet<String, String, Answer>> answersInfo = new ArrayList<>();
+        Ticket tempTicket = new Ticket();
+        User tempUser = new User();
+        for (Answer answer: answers){
+            tempTicket = answer.getTicket();
+            tempUser = tempTicket.getUser();
+            answersInfo.add(new Triplet(tempUser.getLast_name() + " " + tempUser.getLast_name() + " " + tempUser.getPatronym(),
+                    tempTicket.getTopic(),
+                    answer));
+        }
+        
+
         model.addAttribute("logged_user", username);
-        model.addAttribute("answersList", answerDAO.getAllAnswers());
-        model.addAttribute("ticketsList", ticketDAO.getAllTickets());
+        model.addAttribute("answersList", answersInfo);
 
         return "tickets/ticketsToCheck";
     }
