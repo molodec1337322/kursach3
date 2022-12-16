@@ -11,13 +11,12 @@ import com.example.kursach3.models.Subject;
 import com.example.kursach3.models.Ticket;
 import com.example.kursach3.models.User;
 import com.example.kursach3.services.UserDetailsServiceImpl;
-import com.example.kursach3.utils.Triplet;
+import com.example.kursach3.utils.CustomSetStringStringIntString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -263,15 +262,16 @@ public class TicketController {
         for (Ticket ticket: tickets) {
             answers.addAll(answerDAO.getAllAnswersByTicket(ticket.getId()));
         }
-        List<Triplet> answersInfo = new ArrayList<>();
+        List<CustomSetStringStringIntString> answersInfo = new ArrayList<>();
         Ticket tempTicket = new Ticket();
         User tempUser = new User();
         for (Answer answer: answers){
             tempTicket = answer.getTicket();
             tempUser = answer.getUser();
-            answersInfo.add(new Triplet(tempUser.getLast_name() + " " + tempUser.getLast_name() + " " + tempUser.getPatronym(),
+            answersInfo.add(new CustomSetStringStringIntString(tempUser.getLast_name() + " " + tempUser.getLast_name() + " " + tempUser.getPatronym(),
                     tempTicket.getTopic(),
-                    answer.getId()));
+                    answer.getId(),
+                    answer.getEdited_at().toString()));
         }
         
 
@@ -356,9 +356,12 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        UserDetails principals = (UserDetails) authentication.getPrincipal();
+        User user = userDAO.getUserByEmail(principals.getUsername());
+
         model.addAttribute("logged_user", username);
-        model.addAttribute("");
-        return "tickets/ticketsSent";
+        model.addAttribute("answers", answerDAO.getAllAnswersByUser(user.getId()));
+        return "tickets/ticketsSentList";
     }
 
     /*
@@ -418,7 +421,7 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
-        return "tickets/Указание-варианта";
+        return "tickets/findTicketByUID";
     }
 
     /*

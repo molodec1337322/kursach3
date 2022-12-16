@@ -23,6 +23,9 @@ public class Answer {
     @Column(name = "answer_text", nullable = false)
     private String answer_text;
 
+    @Column(name = "grade")
+    private int grade;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
     private Set<Comment> comments = new HashSet<>();
 
@@ -62,6 +65,10 @@ public class Answer {
         this.user = user;
     }
 
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
     public int getId() {
         return id;
     }
@@ -88,5 +95,9 @@ public class Answer {
 
     public User getUser() {
         return user;
+    }
+
+    public int getGrade() {
+        return grade;
     }
 }
