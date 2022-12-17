@@ -3,11 +3,13 @@ package com.example.kursach3.controllers;
 
 import com.example.kursach3.dao.AnswerDAO;
 import com.example.kursach3.dao.CommentsDAO;
+import com.example.kursach3.dao.FileModelDAO;
 import com.example.kursach3.dao.SubjectDAO;
 import com.example.kursach3.dao.TicketDAO;
 import com.example.kursach3.dao.UserDAO;
 import com.example.kursach3.models.Answer;
 import com.example.kursach3.models.Comment;
+import com.example.kursach3.models.FileModel;
 import com.example.kursach3.models.Subject;
 import com.example.kursach3.models.Ticket;
 import com.example.kursach3.models.User;
@@ -64,6 +66,7 @@ public class TicketController {
     private UserDAO userDAO;
     private SubjectDAO subjectDAO;
     private FileService fileService;
+    private FileModelDAO fileModelDAO;
 
     @Autowired
     public void setDAOAndServices(UserDetailsServiceImpl userDetailsService,
@@ -72,7 +75,8 @@ public class TicketController {
                                   AnswerDAO answerDAO,
                                   CommentsDAO commentsDAO,
                                   UserDAO userDAO,
-                                  SubjectDAO subjectDAO){
+                                  SubjectDAO subjectDAO,
+                                  FileModelDAO fileModelDAO){
 
         this.userDetailsService = userDetailsService;
         this.fileService = fileService;
@@ -81,6 +85,7 @@ public class TicketController {
         this.commentsDAO = commentsDAO;
         this.userDAO = userDAO;
         this.subjectDAO = subjectDAO;
+        this.fileModelDAO = fileModelDAO;
     }
 
     /*
@@ -663,6 +668,9 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        List<FileModel> filesList = fileModelDAO.getAllFilesByTicket(ticketDAO.getTicketByUID(uid).getId());
+
+        model.addAttribute("files", filesList);
         model.addAttribute("ticket", ticketDAO.getTicketByUID(uid));
 
         return "tickets/createAnswer";
@@ -703,6 +711,9 @@ public class TicketController {
         newAnswer.setCreated_at(new Date());
         newAnswer.setEdited_at(new Date());
         newAnswer.setUser(user);
+
+        answerDAO.createAnswer(newAnswer);
+
         if (file != null){
             try {
                 fileService.save(file, newAnswer);
@@ -711,13 +722,8 @@ public class TicketController {
             }
         }
 
-        answerDAO.createAnswer(newAnswer);
-
         return "redirect:/tickets/sent";
     }
-
-
-
 
 
 

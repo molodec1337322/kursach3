@@ -1,5 +1,7 @@
 package com.example.kursach3.services;
 
+import com.example.kursach3.dao.AnswerDAO;
+import com.example.kursach3.dao.TicketDAO;
 import com.example.kursach3.models.Answer;
 import com.example.kursach3.models.FileModel;
 import com.example.kursach3.models.Ticket;
@@ -11,18 +13,24 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service("fileService")
 public class FileService {
 
 
     private FileRepository fileRepository;
+    private TicketDAO ticketDAO;
+    private AnswerDAO answerDAO;
 
     @Autowired
-    public void setFileRepository(FileRepository fileRepository){
+    public void setFileRepositoryAndDAO(FileRepository fileRepository, TicketDAO ticketDAO, AnswerDAO answerDAO){
         this.fileRepository = fileRepository;
+        this.ticketDAO = ticketDAO;
+        this.answerDAO = answerDAO;
     }
 
     public void save(MultipartFile file) throws IOException {

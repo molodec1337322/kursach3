@@ -55,7 +55,7 @@ public class FileController {
         return fileResponse;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         Optional<FileModel> fileEntityOptional = fileService.getFile(id);
 

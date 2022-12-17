@@ -1,5 +1,6 @@
 package com.example.kursach3.dao;
 
+import com.example.kursach3.models.Answer;
 import com.example.kursach3.models.Ticket;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,10 @@ public class TicketDAO {
 
     public List<Ticket> getAllTicketsByUser(int user_id){
         return sessionFactory.getCurrentSession().createQuery("from Ticket where user_id=" + user_id).list();
+    }
+
+    public void updateTicket (Ticket ticket){
+        sessionFactory.getCurrentSession().update(ticket);
     }
 
     public void deleteTicketByID(int id){

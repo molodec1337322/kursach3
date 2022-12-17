@@ -29,9 +29,9 @@ public class Ticket {
     private String ticket_text;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
-    private Set<Answer> answers;
+    private Set<Answer> answers = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
     private Set<FileModel> fileModels = new HashSet<>();
 
     @ManyToOne

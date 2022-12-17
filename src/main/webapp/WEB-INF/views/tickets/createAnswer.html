@@ -85,6 +85,9 @@
       <div class="u-align-left u-clearfix u-sheet u-sheet-1">
           <h2 th:text="${'Билет: ' + ticket.getTopic()}"></h2>
         <p class="u-text u-text-default u-text-1" th:text="${ticket.getTicket_text()}"></p>
+          <div th:if="${files != null}" th:each="file : ${files}">
+              <a th:href="${'/files/download/' + file.getId()}" th:text="${file.getName()}"></a>
+          </div>
         <div class="u-expanded-width u-form u-form-1">
           <form action="#" method="POST" class="" source="custom" name="form" style="padding: 10px;">
               <p>Текст ответа</p>
