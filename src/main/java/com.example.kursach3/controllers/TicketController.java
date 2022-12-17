@@ -62,7 +62,7 @@ public class TicketController {
     private SubjectDAO subjectDAO;
 
     @Autowired
-    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService, TicketDAO ticketDAO, AnswerDAO answerDAO, CommentsDAO commentsDAO, UserDAO userDAO, SubjectDAO subjectDAO){
+    public void setDAOAndServices(UserDetailsServiceImpl userDetailsService, TicketDAO ticketDAO, AnswerDAO answerDAO, CommentsDAO commentsDAO, UserDAO userDAO, SubjectDAO subjectDAO){
         this.userDetailsService = userDetailsService;
         this.ticketDAO = ticketDAO;
         this.answerDAO = answerDAO;
