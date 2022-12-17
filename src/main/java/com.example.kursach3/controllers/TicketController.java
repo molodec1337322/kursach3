@@ -511,9 +511,42 @@ public class TicketController {
         }
 
         model.addAttribute("logged_user", username);
+        model.addAttribute("answer", answerDAO.GetAnswerByID(id));
+        model.addAttribute("ticket", ticketDAO.getTicketByID(answerDAO.GetAnswerByID(id).getTicket().getId()));
         model.addAttribute("commentsList", commentsDAO.GetCommentsAnswerID(id));
 
-        return "tickets/createAnswer";
+        return "tickets/editAnswer";
+    }
+
+    @PostMapping("/sent/{id}")
+    public String GetOneSentTicketPost(@PathVariable("id") int id,
+                                       @RequestParam("grade") String grade,
+                                       Authentication authentication,
+                                       Model model){
+        boolean isAuthenticated = false;
+        boolean isTeacher = false;
+        String username = null;
+
+        if(authentication != null){
+            isAuthenticated = authentication.isAuthenticated();
+            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            isTeacher = isUserTeacher(authentication);
+        }
+
+        if(!isAuthenticated){
+            return "redirect:/auth/login";
+        }
+
+        if(isTeacher){
+            return "redirect:/access_denial";
+        }
+
+        model.addAttribute("logged_user", username);
+        model.addAttribute("answer", answerDAO.GetAnswerByID(id));
+        model.addAttribute("ticket", ticketDAO.getTicketByID(answerDAO.GetAnswerByID(id).getTicket().getId()));
+        model.addAttribute("commentsList", commentsDAO.GetCommentsAnswerID(id));
+
+        return "tickets/editAnswer";
     }
 
     /*
