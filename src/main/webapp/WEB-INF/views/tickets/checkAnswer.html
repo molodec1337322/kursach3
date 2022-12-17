@@ -86,7 +86,10 @@
           <h2 th:text="${ticketTopic}"></h2>
           <p th:text="${'Работа выполнена: ' + madeBy}"></p>
           <p class="u-text u-text-default u-text-1" th:text="${answer.getAnswer_text()}"></p>
-
+          <div th:if="${files != null}" th:each="file : ${files}">
+              <h5>Прикрепленные файлы</h5>
+              <a th:href="${'/files/download/' + file.getId()}" th:text="${file.getName()}"></a>
+          </div>
           <div class="u-expanded-width u-form u-form-1">
 
               <form action="#" method="POST" class="" source="custom" name="form" style="padding: 10px;">

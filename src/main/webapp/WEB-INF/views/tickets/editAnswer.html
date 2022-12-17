@@ -86,25 +86,10 @@
           <h2 th:text="${'Билет: ' + ticket.getTopic()}"></h2>
           <p class="u-text u-text-default u-text-1" th:text="${ticket.getTicket_text()}"></p>
           <p class="u-text u-text-default u-text-1" th:if="${answer.getGrade != null}" th:text="${'Оценка: ' + answer.getGrade() + '  Дата оценивания: ' + answer.getGraded_at()}"></p>
-        <div class="u-expanded-width u-form u-form-1">
-          <form action="#" method="POST" class="" source="custom" name="form" style="padding: 10px;">
-              <p>Текст ответа</p>
-              <div class="u-form-group u-form-message">
-                  <label for="message-1dda" class="u-form-control-hidden u-label"></label>
-                  <textarea placeholder="Введите ответ на задание" rows="4" cols="50" id="message-1dda" name="answerText" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" th:value="${answer.getAnswer_text()}"></textarea>
-              </div>
-              <div style="margin-top: 10px;" class="u-form-email u-form-group">
-                  <label for="email-1dda" class="u-form-control-hidden u-label"></label>
-                  <input type="file" placeholder="Файл" id="email-1dda" name="answerFile" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
-              </div>
-              <div class="u-align-left u-form-group u-form-submit">
-                  <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>
-                  <input type="submit" value="submit" class="u-form-control-hidden">
-              </div>
-
-            <input type="hidden" value="" name="recaptchaResponse">
-          </form>
-        </div>
+          <div th:if="${files != null}" th:each="file : ${files}">
+              <h5>Прикрепленные файлы</h5>
+              <a th:href="${'/files/download/' + file.getId()}" th:text="${file.getName()}"></a>
+          </div>
 
           <div style="margin-top: 20px;" class="u-expanded-width u-form u-form-1">
 
@@ -112,7 +97,7 @@
               <form th:action="${'/tickets/answers/' + answer.getId() + '/addComment'}" method="POST" class="" source="custom" name="form" style="padding: 10px;">
                   <p>Текст комментария</p>
                   <div class="u-form-group u-form-message">
-                      <label for="message-1dda" class="u-form-control-hidden u-label"></label>
+                      <label for="message-dda" class="u-form-control-hidden u-label"></label>
                       <textarea placeholder="Введите текст комментария" rows="4" cols="50" id="message-dda" name="commentText" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" th:value="${answer.getAnswer_text()}"></textarea>
                   </div>
                   <div class="u-align-left u-form-group u-form-submit">
