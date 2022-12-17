@@ -9,8 +9,8 @@ import javax.persistence.*;
 public class FileModel {
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
     @Column(name = "name", nullable = false)
@@ -30,36 +30,36 @@ public class FileModel {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
     public Long getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
-        this.size = size;
-    }
-
     public byte[] getData() {
         return data;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
     }
 
     public void setData(byte[] data) {
