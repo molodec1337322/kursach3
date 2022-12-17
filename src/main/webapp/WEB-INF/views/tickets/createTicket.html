@@ -85,7 +85,7 @@
       <div class="u-align-left u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-expanded-width u-form u-form-1">
             <h2>Создание нового билета</h2>
-          <form action="/tickets/newTicket" method="POST" class="" source="custom" name="form" style="padding: 10px;">
+          <form action="/tickets/newTicket" method="POST" class="" source="custom" name="form" style="padding: 10px;" enctype="multipart/form-data">
             <input type="hidden" id="siteId" name="siteId" value="831827426">
             <input type="hidden" id="pageId" name="pageId" value="63622427">
               <p>Название билета</p>
@@ -110,7 +110,7 @@
               </div>
               <div style="margin-top: 10px;" class="u-form-email u-form-group">
                   <label for="email-1dda" class="u-form-control-hidden u-label"></label>
-                  <input type="file" placeholder="Файл" id="email-dda" name="ticketFile" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+                  <input type="file" placeholder="Файл" id="email-dda" name="ticketFile" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
               </div>
             <div style="margin-top: 10px;" class="u-align-left u-form-group u-form-submit">
               <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>

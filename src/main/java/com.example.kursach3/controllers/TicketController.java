@@ -276,6 +276,9 @@ public class TicketController {
         ticket.setTopic(ticketTopic);
         ticket.setSubject(subject);
         ticket.setUser(user);
+
+        ticketDAO.createTicket(ticket);
+
         if (file != null){
             try {
                 fileService.save(file, ticket);
@@ -283,10 +286,6 @@ public class TicketController {
                 e.printStackTrace();
             }
         }
-
-        System.out.println();
-
-        ticketDAO.createTicket(ticket);
 
         model.addAttribute("logged_user", username);
 
