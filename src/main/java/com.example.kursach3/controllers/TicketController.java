@@ -11,6 +11,7 @@ import com.example.kursach3.models.Comment;
 import com.example.kursach3.models.Subject;
 import com.example.kursach3.models.Ticket;
 import com.example.kursach3.models.User;
+import com.example.kursach3.services.FileService;
 import com.example.kursach3.services.UserDetailsServiceImpl;
 import com.example.kursach3.utils.CustomFivefoldSet;
 import com.example.kursach3.utils.CustomSixfoldSet;
@@ -22,7 +23,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 /*
@@ -60,10 +63,19 @@ public class TicketController {
     private CommentsDAO commentsDAO;
     private UserDAO userDAO;
     private SubjectDAO subjectDAO;
+    private FileService fileService;
 
     @Autowired
-    public void setDAOAndServices(UserDetailsServiceImpl userDetailsService, TicketDAO ticketDAO, AnswerDAO answerDAO, CommentsDAO commentsDAO, UserDAO userDAO, SubjectDAO subjectDAO){
+    public void setDAOAndServices(UserDetailsServiceImpl userDetailsService,
+                                  FileService fileService,
+                                  TicketDAO ticketDAO,
+                                  AnswerDAO answerDAO,
+                                  CommentsDAO commentsDAO,
+                                  UserDAO userDAO,
+                                  SubjectDAO subjectDAO){
+
         this.userDetailsService = userDetailsService;
+        this.fileService = fileService;
         this.ticketDAO = ticketDAO;
         this.answerDAO = answerDAO;
         this.commentsDAO = commentsDAO;
@@ -228,6 +240,7 @@ public class TicketController {
     public String CreateNewTicketPost(@RequestParam(value = "ticketTopic") String ticketTopic,
                                       @RequestParam(value = "ticketText") String ticketText,
                                       @RequestParam(value = "subject") int subjectId,
+                                      @RequestParam("ticketFile") MultipartFile file,
                                       Authentication authentication,
                                       Model model){
 
@@ -263,6 +276,13 @@ public class TicketController {
         ticket.setTopic(ticketTopic);
         ticket.setSubject(subject);
         ticket.setUser(user);
+        if (file != null){
+            try {
+                fileService.save(file, ticket);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         System.out.println();
 
@@ -652,6 +672,7 @@ public class TicketController {
     @PostMapping("/createAnswer/{uid}")
     public String CreateNewAnswerToTicketPost(@PathVariable("uid") String uid,
                                               @RequestParam(value = "answerText") String answerText,
+                                              @RequestParam("answerFile") MultipartFile file,
                                               Authentication authentication,
                                               Model model){
         boolean isAuthenticated = false;
@@ -683,6 +704,13 @@ public class TicketController {
         newAnswer.setCreated_at(new Date());
         newAnswer.setEdited_at(new Date());
         newAnswer.setUser(user);
+        if (file != null){
+            try {
+                fileService.save(file, newAnswer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         answerDAO.createAnswer(newAnswer);
 

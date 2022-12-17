@@ -26,6 +26,14 @@ public class FileModel {
     @Column(name = "data")
     private byte[] data;
 
+    @ManyToOne
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
+
+    @ManyToOne
+    @JoinColumn(name = "answer_id")
+    private Answer answer;
+
     public String getId() {
         return id;
     }
@@ -46,6 +54,16 @@ public class FileModel {
         return data;
     }
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -64,5 +82,13 @@ public class FileModel {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }

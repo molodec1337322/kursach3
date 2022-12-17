@@ -1,9 +1,12 @@
 package com.example.kursach3.services;
 
+import com.example.kursach3.models.Answer;
 import com.example.kursach3.models.FileModel;
+import com.example.kursach3.models.Ticket;
 import com.example.kursach3.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,13 +26,37 @@ public class FileService {
     }
 
     public void save(MultipartFile file) throws IOException {
-        FileModel fileEntity = new FileModel();
-        fileEntity.setName(StringUtils.cleanPath(file.getOriginalFilename()));
-        fileEntity.setContentType(file.getContentType());
-        fileEntity.setData(file.getBytes());
-        fileEntity.setSize(file.getSize());
+        FileModel fileModel = new FileModel();
+        fileModel.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+        fileModel.setContentType(file.getContentType());
+        fileModel.setData(file.getBytes());
+        fileModel.setSize(file.getSize());
 
-        fileRepository.save(fileEntity);
+        fileRepository.save(fileModel);
+    }
+
+    public void save(MultipartFile file, Ticket ticket) throws IOException {
+        FileModel fileModel = new FileModel();
+        fileModel.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+        fileModel.setContentType(file.getContentType());
+        fileModel.setData(file.getBytes());
+        fileModel.setSize(file.getSize());
+
+        fileModel.setTicket(ticket);
+
+        fileRepository.save(fileModel);
+    }
+
+    public void save(MultipartFile file, Answer answer) throws IOException {
+        FileModel fileModel = new FileModel();
+        fileModel.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+        fileModel.setContentType(file.getContentType());
+        fileModel.setData(file.getBytes());
+        fileModel.setSize(file.getSize());
+
+        fileModel.setAnswer(answer);
+
+        fileRepository.save(fileModel);
     }
 
     public Optional<FileModel> getFile(String id) {

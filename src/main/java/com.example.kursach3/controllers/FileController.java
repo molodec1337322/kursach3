@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -29,20 +28,25 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) throws IOException {
-        fileService.save(file);
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
+        try {
+            fileService.save(file);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(String.format("File uploaded successfully: %s", file.getOriginalFilename()));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(String.format("File uploaded successfully: %s", file.getOriginalFilename()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(String.format("Could not upload the file: %s!", file.getOriginalFilename()));
+        }
     }
 
     private FileResponse mapToFileResponse(FileModel fileEntity) {
         String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/files/")
-                .path(String.valueOf(fileEntity.getId()))
+                .path(fileEntity.getId())
                 .toUriString();
         FileResponse fileResponse = new FileResponse();
-        fileResponse.setId(String.valueOf(fileEntity.getId()));
+        fileResponse.setId(fileEntity.getId());
         fileResponse.setName(fileEntity.getName());
         fileResponse.setContentType(fileEntity.getContentType());
         fileResponse.setSize(fileEntity.getSize());

@@ -2,6 +2,7 @@ package com.example.kursach3.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,9 @@ public class Ticket {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
     private Set<Answer> answers;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
+    private Set<FileModel> fileModels = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -78,6 +82,11 @@ public class Ticket {
         this.subject = subject;
     }
 
+    public void setFileModels(Set<FileModel> fileModels) {
+        this.fileModels = fileModels;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -112,5 +121,9 @@ public class Ticket {
 
     public Subject getSubject() {
         return subject;
+    }
+
+    public Set<FileModel> getFileModels() {
+        return fileModels;
     }
 }

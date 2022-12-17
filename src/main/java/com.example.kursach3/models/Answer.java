@@ -32,6 +32,9 @@ public class Answer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
     private Set<Comment> comments = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
+    private Set<FileModel> fileModels = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
@@ -76,6 +79,12 @@ public class Answer {
         this.graded_at = graded_at;
     }
 
+    public void setFileModels(Set<FileModel> fileModels) {
+        this.fileModels = fileModels;
+    }
+
+
+
     public int getId() {
         return id;
     }
@@ -110,5 +119,9 @@ public class Answer {
 
     public Date getGraded_at() {
         return graded_at;
+    }
+
+    public Set<FileModel> getFileModels() {
+        return fileModels;
     }
 }
