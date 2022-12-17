@@ -537,6 +537,9 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
+        List<FileModel> filesList = fileModelDAO.getAllFilesByAnswers(id);
+
+        model.addAttribute("files", filesList);
         model.addAttribute("logged_user", username);
         model.addAttribute("answer", answerDAO.GetAnswerByID(id));
         model.addAttribute("ticket", ticketDAO.getTicketByID(answerDAO.GetAnswerByID(id).getTicket().getId()));
@@ -568,9 +571,6 @@ public class TicketController {
             return "redirect:/access_denial";
         }
 
-        List<FileModel> filesList = fileModelDAO.getAllFilesByTicket(ticketDAO.getTicketByID(id).getId());
-
-        model.addAttribute("files", filesList);
         model.addAttribute("logged_user", username);
         model.addAttribute("answer", answerDAO.GetAnswerByID(id));
         model.addAttribute("ticket", ticketDAO.getTicketByID(answerDAO.GetAnswerByID(id).getTicket().getId()));
