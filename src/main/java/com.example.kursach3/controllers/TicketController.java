@@ -38,21 +38,24 @@ https://host:port ---> /auth ---> /login
                   |          ---> /registration
                   |
                   ---> /tickets ---> /createdTickets ---> /delete/{id}
-                                |
-                                ---> /newTicket
-                                |
-                                ---> /toCheck
-                                |
-                                |
-                                |
-                                ---> /sent
-                                |
-                                ---> /getTicket
-                                |
-                                ---> /createAnswer/{uid}
-                                |
-                                ---> answers/{id}/addComment/
-
+                  |             |
+                  |             ---> /newTicket
+                  |             |
+                  |             ---> /toCheck
+                  |             |
+                  |             |
+                  |             |
+                  |             ---> /sent
+                  |             |
+                  |             ---> /getTicket
+                  |             |
+                  |             ---> /createAnswer/{uid}
+                  |             |
+                  |             ---> answers/{id}/addComment/
+                  |
+                  ---> /files ---> /download/{id}
+                              |
+                              ---> /upload
  */
 
 @Controller
