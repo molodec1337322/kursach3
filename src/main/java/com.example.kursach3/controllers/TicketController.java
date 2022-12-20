@@ -301,7 +301,7 @@ public class TicketController {
     }
 
     @GetMapping("/createdTickets/delete/{id}")
-    public String DeleteTicket(@RequestParam(value = "id") int id,
+    public String DeleteTicket(@PathVariable(value = "id") int id,
                                Authentication authentication,
                                Model model){
 
@@ -528,7 +528,9 @@ public class TicketController {
 
         if(authentication != null){
             isAuthenticated = authentication.isAuthenticated();
-            username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            UserDetails principals = (UserDetails) authentication.getPrincipal();
+            User user = userDAO.getUserByEmail(principals.getUsername());
+            username = user.getLast_name() + " " + user.getFirst_name() + " " + user.getPatronym();
             isTeacher = isUserTeacher(authentication);
         }
 

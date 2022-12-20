@@ -2,6 +2,7 @@ package com.example.kursach3.controllers;
 
 import com.example.kursach3.models.FileModel;
 import com.example.kursach3.services.FileService;
+import com.example.kursach3.services.UserDetailsServiceImpl;
 import com.example.kursach3.utils.FileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,10 +22,12 @@ import java.util.Optional;
 public class FileController {
 
     private FileService fileService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    public void setFileService(FileService fileService){
+    public void setServices(FileService fileService, UserDetailsServiceImpl userDetailsService){
         this.fileService = fileService;
+        this.userDetailsService = userDetailsService;
     }
 
     @PostMapping("/upload")
